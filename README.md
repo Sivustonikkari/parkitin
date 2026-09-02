@@ -1,110 +1,109 @@
-# Parkitin
-
 ![Parkitin](assets/parkitin.svg)
 
-Parkitin on PHP:n, MySQL:n ja selaimessa ajettavan TypeScript-käyttöliittymän muodostama pysäköintipalvelun prototyyppi. Käyttöliittymä käyttää vain vanillaa TypeScriptiä ja CSS:ää. Erillistä käyttöliittymäkirjastoa tai karttakirjastoa ei käytetä.
+Harjoitustyönä tehty pysäköintisovellus, joka koostuu MySQL-tietokannasta, PHP:llä toteutetusta REST APIsta ja vanilla TypeScriptillä toteutetusta käyttöliittymästä, eli ei erillistä käyttöliittymäkirjastoa. Tyylit on myös perus CSS:llä väsätty. Karttana on openStreetmap. Erillistä karttakirjastoa ei käytetä vaan kartta piirretään OSM:n julkista tile-kirjastoa käyttämällä (`https://tile.openstreetmap.org/{z}/{x}/{y}.png`). Postitoimipaikkatiedot on noudettu Avoin data -palvelusta (`https://avoindata.suomi.fi/data/fi/dataset/suomen-postitoimipaikat`).
 
-Palvelu sijaitsee tuotannossa osoitteessa:
+Kirjautumisessa käytetään sähköpostiin lähetettävää kirjautumislinkkiä. Selitetty tarkemmin kohdassa [Kirjautumismenetelmä](#kirjautumismenetelmä).
 
-`https://testinikkari.fi/parkitin/`
+Lokalisointiin käytetään custom-funktiota (trans), joka käyttää .json-tiedostoja, joista luetaan käännösten lisäksi kielten nimet ja oletuskieli
+
+Palvelu sijaitsee testipalvelimella osoitteessa: `https://testinikkari.fi/parkitin/`
 
 ## Arkkitehtuuri
 
 Sovelluksessa on kolme pääosaa:
 
-1. **MySQL-tietokanta** säilyttää käyttäjät, pysäköintialueet, pysäköintipaikat, pysäköinnit, istunnot, kirjautumislinkit ja maksut.
-2. **PHP REST API** käsittelee tietokantatoiminnot, tunnistautumisen, pysäköinnin, maksut ja sähköpostit.
-3. **Vanilla TypeScript + CSS -käyttöliittymä** näyttää kirjautumisen, profiilin, kartan, pysäköinnin ja hallintapaneelin.
+1. **MySQL-tietokanta** käyttäjät, pysäköintialueet, pysäköintipaikat, pysäköinnit, istunnot, kirjautumislinkit maksutiedot.
+2. **PHP REST API** tietokantatoimintojen hallinta ja sähköpostin lähetys.
+3. **Vanilla TypeScript + CSS** Käyttölittumätoiminnot
 
-Selain lataa juuren `index.php`-tiedostosta HTML-kuoren. TypeScriptin lähdekoodi on `src/app.ts`. Käännetty selainkoodi on `assets/js/app.js`. Tyylit ovat tiedostossa `assets/css/style.css`.
 
 ## Tietokanta
 
-Tietokantarakenne on tiedostossa `sql/schema.sql`. Rakenne käyttää InnoDB-moottoria, vierasavaimia ja `utf8mb4`-merkistöä.
+Tietokannan rakenne on tiedostossa `sql/schema.sql`.
 
-### `parking_lots`
+```mermaid
+erDiagram
+  USERS ||--o{ PARKING_SESSIONS : "pysäköi"
+  PARKING_LOTS ||--o{ PARKING_SLOTS : "sisältää"
+  PARKING_SLOTS ||--o{ PARKING_SESSIONS : "varataan"
+  USERS ||--o{ LOGIN_TOKENS : "kirjautumislinkit"
+  USERS ||--o{ USER_SESSIONS : "selainistunnot"
 
-Pysäköintialueen perustiedot:
+  USERS {
+    int id PK
+    string email UK
+    string reg_number UK
+    string first_name
+    string last_name
+    string postal_code
+    enum role "owner | admin | customer"
+    enum status "pending | confirmed"
+    text parking "aktiivinen pysäköinti"
+  }
 
-- `id`: alueen yksilöivä tunniste
-- `name`: alueen nimi
-- `address`: katuosoite
-- `city`: postinumeroon perustuva paikkakunta
-- `postal_code`: viisinumeroinen postinumero
-- `latitude`, `longitude`: palvelimella geokoodatut koordinaatit karttaa varten
-- `info`: lisätiedot
-- `capacity`: paikkojen lukumäärä, joka johdetaan paikkarivien lukumäärästä
-- `price_first_3h`: hinta alkavalta minuutilta ensimmäisten kolmen tunnin aikana
-- `price_per_extra_hour`: hinta alkavalta minuutilta kolmen tunnin jälkeen
-- `parking`: tällä hetkellä varattujen pysäköintien tunnisteet JSON-muodossa
-- `created_at`: luontiaika
+  PARKING_LOTS {
+    int id PK
+    string name
+    string address
+    string city
+    string postal_code
+    decimal latitude
+    decimal longitude
+    int capacity
+    decimal price_first_3h "EUR / alkava minuutti"
+    decimal price_per_extra_hour "EUR / alkava minuutti"
+    text parking "aktiiviset varaukset"
+  }
 
-Nykyiset mock-hinnat ovat `0,50 EUR / alkava minuutti` ensimmäisten 180 minuutin ajan ja `0,30 EUR / alkava minuutti` sen jälkeen.
+  PARKING_SLOTS {
+    int id PK
+    int lot_id FK
+    int slot_number
+    string name "vapaaehtoinen"
+    boolean is_active
+  }
 
-### `parking_slots`
+  PARKING_SESSIONS {
+    int id PK
+    int user_id FK
+    int slot_id FK
+    datetime start_time
+    datetime end_time "NULL = aktiivinen"
+    decimal price_charged
+    enum status "open | paid"
+  }
 
-Jokainen fyysinen pysäköintipaikka on oma rivinsä:
+  LOGIN_TOKENS {
+    int id PK
+    int user_id FK
+    string token_hash
+    datetime expires_at
+    datetime used_at
+  }
 
-- `lot_id`: pysäköintialue
-- `slot_number`: alueen sisäinen juokseva numero
-- `name`: vapaaehtoinen nimi
-- `is_active`: voiko paikkaa käyttää
+  USER_SESSIONS {
+    int id PK
+    int user_id FK
+    string token_hash
+    datetime expires_at
+  }
 
-Hallintapaneelissa paikat lähetetään alueen `slots`-taulukkona. Paikan poistaminen järjestää jäljelle jääneet paikat uudelleen numeroille 1, 2, 3 jne. Aktiivista pysäköintiä sisältävää paikkaa ei voi muokata, poistaa tai numeroida uudelleen.
-
-### `users`
-
-Sama taulu sisältää sekä kuljettajat että käyttöliittymän käyttäjätilit. Erillistä `accounts`-taulua ei käytetä.
-
-- `email`: kirjautumiseen käytettävä sähköposti, yksilöivä
-- `reg_number`: ajoneuvon rekisterinumero
-- `first_name`, `last_name`: nimi
-- `postal_code`: käyttäjän postinumero
-- `role`: `owner`, `admin` tai `customer`
-- `status`: `pending` tai `confirmed`
-- `parking`: aktiivisen pysäköinnin JSON-tiedot tai `NULL`
-
-Kaupunki ei ole käyttäjän pysyvä syötekenttä. Se johdetaan postinumerosta XML-tiedoston `assets/postitoimipaikat.xml` avulla.
-
-### `parking_sessions`
-
-Jokainen pysäköintikerta jää historiaan:
-
-- käyttäjä ja pysäköintipaikka
-- rekisterinumero pysäköintihetken tietona
-- alkuaika ja loppuaika
-- laskettu hinta
-- laskun tila: `open` tai `paid`
-
-Aktiivinen pysäköinti on rivi, jonka `end_time` on `NULL`. Pysäköinnin päätyttyä rivi jää avoimeksi laskuksi, kunnes mock-maksu merkitsee sen maksetuksi.
-
-### `login_tokens` ja `user_sessions`
-
-`login_tokens` sisältää kertakäyttöiset sähköpostilinkit. Linkki vanhenee 15 minuutissa.
-
-`user_sessions` sisältää onnistuneen linkkikirjautumisen jälkeen luodun istunnon. Istunto vanhenee tunnissa. Selain säilyttää istuntotunnisteen `localStorage`-tallennuksessa ja lähettää sen `Authorization: Bearer ...` -otsakkeena.
-
-### `api_keys`
-
-Tämä taulu on ulkoisen tai palvelinpuolen ajoneuvo- ja alue-API:n API-avaimia varten. Kehitysvaiheessa käytössä on lisäksi `config.php`-tiedostossa oleva väliaikainen `DEV_API_KEY`.
-
-## Skeeman asentaminen
-
-1. Kopioi `config.example.php` tiedostoksi `config.php`.
-2. Täytä tietokantapalvelimen, tietokannan, käyttäjän ja salasanan tiedot.
-3. Aja skeema:
-
-```bash
-mysql -h PALVELIN -u KAYTTAJA -p TIETOKANTA < sql/schema.sql
+  API_KEYS {
+    int id PK
+    string key_hash
+    string label
+  }
 ```
 
-Tuotannossa skeemamuutokset kannattaa ajaa hallitusti migraationa. `CREATE TABLE IF NOT EXISTS` ei muuta jo olemassa olevia tauluja.
+`users` sisältää sekä asiakkaat että hallintakäyttäjät. Kaupunki johdetaan käyttäjän postinumerosta tiedostolla `assets/postitoimipaikat.xml`. `parking_sessions` säilyttää pysäköinti- ja laskuhistorian: aktiivisella pysäköinnillä `end_time` on `NULL`; päättynyt pysäköinti on lasku tilassa `open` tai `paid`.
+
+`parking_lots` sisältää karttakoordinaatit, hinnat ja aktiivisten varausten tunnisteet. Alueen `capacity` muodostuu siihen liittyvien `parking_slots`-rivien määrästä. Nykyiset testihinnat ovat `0,50 EUR / alkava minuutti` ensimmäisten 180 minuutin ajan ja `0,30 EUR / alkava minuutti` sen jälkeen.
+
+`login_tokens` ovat 15 minuutin kertakäyttöisiä sähköpostilinkkejä. `user_sessions` ovat yhden tunnin Bearer-istuntoja. `api_keys` on palvelin- ja integraatio-API:n avaimia varten.
 
 ## PHP API
 
-API:n etureititin on `api/index.php`. Reitti valitaan query-parametrilla:
-
-`/parkitin/api/index.php?resource=RESOURCE`
+APIn osoite on `/api/`. Endpoint query-parametrilla: `/parkitin/api/index.php?resource=RESOURCE`
 
 JSON POST- ja PUT-pyynnöt lähetetään `Content-Type: application/json` -otsakkeella.
 
@@ -176,18 +175,6 @@ Omistaja- ja ylläpitäjätoiminnot tarkistavat lisäksi käyttäjän roolin. As
 
 `index.php` tarjoaa vain HTML-kuoren. `src/app.ts` sisältää käyttöliittymälogiikan ja käännetään tiedostoksi `assets/js/app.js`.
 
-Käännä TypeScript:
-
-```bash
-./node_modules/.bin/tsc -p tsconfig.json
-```
-
-Tarkista selainkoodi:
-
-```bash
-node --check assets/js/app.js
-```
-
 UI käyttää:
 
 - DOM API:a ilman Reactia, Vuea tai muuta UI-kirjastoa
@@ -240,7 +227,7 @@ Asiakas voi:
 
 Sähköpostiosoitetta ei voi muuttaa käyttöliittymästä.
 
-## Kirjautumis- ja pysäköintivirta
+## Kirjautumismenetelmä
 
 1. Käyttäjä syöttää sähköpostiosoitteen.
 2. API tarkistaa osoitteen muodon palvelimella ja selain tarkistaa sen myös normaalilla HTML-validoinnilla.
@@ -310,22 +297,14 @@ Aineisto on mock-dataa, ei vahvistettu reaaliaikainen Digitraffic-syöte.
 
 ## Sähköpostit
 
-PHPMailer asennetaan Composerilla:
-
-```bash
-composer install
-```
-
 Sähköpostien lähetys käyttää tällä hetkellä PHP:n `mail()`-toimintoa PHPMailerin `isMail()`-tilassa. Viestit lähetetään UTF-8-merkistöllä. Kirjautumislinkkien sähköposti on toteutettu `mailer.php`-tiedostossa.
 
-## Turvallisuus ja tuotantohuomiot
+## Turvallisuusperiaatteet
 
-- Älä julkaise `config.php`-tiedostoa tai sen salasanoja.
-- `config.php` on jätetty `.gitignore`-tiedostoon; käytä `config.example.php`-pohjaa.
-- Vaihda kehityksen `DEV_API_KEY` ennen oikeaa integraatiokäyttöä.
-- Lisää kirjautumispyyntöihin rate limiting ennen tuotantokäyttöä.
-- Konfiguroi SMTP tai muu luotettava postipalvelu, jos PHP `mail()` ei riitä.
-- Pidä `vendor/` ja `node_modules/` palvelimella vain tarpeen mukaan; ne eivät kuulu lähdekoodin toiminnalliseen dokumentaatioon.
+- Tietokantasalaisuudet ovat sovelluksen asetustiedostossa, jota ei versioida.
+- Selainistunto perustuu kertakäyttöiseen, vanhenevaan Bearer-tunnisteeseen.
+- Hallintatoimintojen roolit tarkistetaan PHP-palvelimella.
+- Käyttäjän sähköposti validoidaan selaimessa ja palvelimella.
 - Admin-rajapinnan roolit tarkistetaan palvelimella. Pelkkää käyttöliittymän piilotusta ei pidä pitää käyttöoikeutena.
 
 ## Tiedostot
@@ -349,15 +328,5 @@ Sähköpostien lähetys käyttää tällä hetkellä PHP:n `mail()`-toimintoa PH
 - `assets/postitoimipaikat.xml`: postinumeroiden ja postitoimipaikkojen lähde
 - `scripts/import_digitraffic.php`: mock-aineiston tuonti
 - `scripts/expand_digitraffic_mock.php`: mock-aineiston laajennus
-
-## Tarkistukset
-
-```bash
-./node_modules/.bin/tsc -p tsconfig.json
-node --check assets/js/app.js
-for f in index.php api/index.php config.php db.php auth.php helpers.php mailer.php handlers/*.php i18n/index.php scripts/*.php; do php -l "$f"; done
-python3 -m json.tool i18n/fi-FI.json >/dev/null
-python3 -m json.tool i18n/en-GB.json >/dev/null
-```
 
 Sovellus on tällä hetkellä prototyyppi. Pysäköinnin ja maksun liiketoimintalogiikka toimii tietokannan kautta, mutta maksaminen ja osa ulkoisesta pysäköintidatasta ovat tarkoituksella mock-toteutuksia.
