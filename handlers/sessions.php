@@ -1,4 +1,5 @@
 <?php
+// Handler for starting and ending vehicle parking sessions.
 
 require_once __DIR__ . '/../helpers.php';
 require_once __DIR__ . '/users.php';

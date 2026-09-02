@@ -1,4 +1,5 @@
 <?php
+// Browser UI HTML shell and cache-busting asset versioning.
 header('Cache-Control: no-cache');
 $cssVersion = filemtime(__DIR__ . '/assets/css/style.css');
 $jsVersion = filemtime(__DIR__ . '/assets/js/app.js');

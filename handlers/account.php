@@ -1,4 +1,5 @@
 <?php
+// User login, profile, parking, and payment operations.
 
 require_once __DIR__ . '/../helpers.php';
 require_once __DIR__ . '/../mailer.php';

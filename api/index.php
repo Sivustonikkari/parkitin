@@ -1,4 +1,5 @@
 <?php
+// REST API router and entry point for resource authorization.
 
 require_once __DIR__ . '/../helpers.php';
 require_once __DIR__ . '/../auth.php';

@@ -1,4 +1,5 @@
 <?php
+// One-time database import of Digitraffic-shaped parking data.
 
 // One-off CLI import: mock data shaped like Digitraffic's Parking Facilities API
 // (https://tie.digitraffic.fi) — GeoJSON FeatureCollection of parking facilities.

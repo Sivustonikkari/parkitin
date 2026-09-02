@@ -1,4 +1,5 @@
 <?php
+// Expands the Digitraffic mock dataset to Finnish cities.
 
 $mockFile = __DIR__ . '/digitraffic-mock.json';
 $data = json_decode(file_get_contents($mockFile), true, 512, JSON_THROW_ON_ERROR);

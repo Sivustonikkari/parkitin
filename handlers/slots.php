@@ -1,4 +1,5 @@
 <?php
+// Queries for parking slot free/occupied status.
 
 require_once __DIR__ . '/../helpers.php';
 

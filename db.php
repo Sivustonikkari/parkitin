@@ -1,4 +1,5 @@
 <?php
+// PDO connection creation and reusable database helper function.
 
 require_once __DIR__ . '/config.php';
 

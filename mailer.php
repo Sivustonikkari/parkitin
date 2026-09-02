@@ -1,4 +1,5 @@
 <?php
+// UTF-8 email sending for login links and mock invoices.
 
 require_once __DIR__ . '/vendor/autoload.php';
 

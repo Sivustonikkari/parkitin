@@ -1,4 +1,5 @@
 <?php
+// JSON endpoint for available locale metadata.
 
 // lists available locales (metadata only, not full translations) for the language switcher
 header('Content-Type: application/json');

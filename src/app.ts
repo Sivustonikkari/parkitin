@@ -1,3 +1,4 @@
+// Parkitin frontend UI, localization, and browser-based map view.
 const API_BASE = 'api/index.php';
 const SESSION_KEY = 'parkitin_session_token';
 const LOCALE_KEY = 'parkitin_locale';

@@ -1,4 +1,5 @@
 <?php
+// Shared JSON, input validation, email, and city lookup helpers.
 
 function send_json($data, int $status = 200): void
 {

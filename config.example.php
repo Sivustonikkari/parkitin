@@ -1,4 +1,5 @@
 <?php
+// Safe config template for creating a local config.php file.
 
 define('DB_HOST', 'db.example.com');
 define('DB_NAME', 'parkitin');

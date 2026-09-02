@@ -1,4 +1,5 @@
 <?php
+// REST handler for user management and role-based changes.
 
 require_once __DIR__ . '/../helpers.php';
 

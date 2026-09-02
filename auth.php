@@ -1,4 +1,5 @@
 <?php
+// API key and logged-in user session verification.
 
 require_once __DIR__ . '/db.php';
 

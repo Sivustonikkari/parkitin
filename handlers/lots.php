@@ -1,4 +1,5 @@
 <?php
+// REST handler for parking lots and their slot definitions.
 
 require_once __DIR__ . '/../helpers.php';
 
