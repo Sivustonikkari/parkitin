@@ -462,6 +462,33 @@ async function renderCustomerMap(token: string): Promise<void> {
         draw();
     });
 
+    const zoomControls = document.createElement('div');
+    zoomControls.className = 'map-zoom-controls';
+
+    const zoomIn = document.createElement('button');
+    zoomIn.className = 'map-zoom-button';
+    zoomIn.type = 'button';
+    zoomIn.textContent = '+';
+    zoomIn.title = 'Zoom in';
+    zoomIn.setAttribute('aria-label', 'Zoom in');
+    zoomIn.addEventListener('click', () => {
+        zoom = Math.min(18, zoom + 1);
+        draw();
+    });
+
+    const zoomOut = document.createElement('button');
+    zoomOut.className = 'map-zoom-button';
+    zoomOut.type = 'button';
+    zoomOut.textContent = '−';
+    zoomOut.title = 'Zoom out';
+    zoomOut.setAttribute('aria-label', 'Zoom out');
+    zoomOut.addEventListener('click', () => {
+        zoom = Math.max(8, zoom - 1);
+        draw();
+    });
+
+    zoomControls.append(zoomIn, zoomOut);
+
     function draw(): void {
         map.innerHTML = '';
         const width = map.clientWidth;
@@ -541,11 +568,12 @@ async function renderCustomerMap(token: string): Promise<void> {
             layer.appendChild(pin);
         }
         map.appendChild(layer);
+        map.appendChild(zoomControls);
         map.appendChild(centerButton);
     }
 
     map.addEventListener('pointerdown', (event) => {
-        if (event.target instanceof Element && event.target.closest('.map-pin, .map-center-button')) return;
+        if (event.target instanceof Element && event.target.closest('.map-pin, .map-center-button, .map-zoom-controls')) return;
         drag = { x: event.clientX, y: event.clientY };
         map.setPointerCapture(event.pointerId);
     });

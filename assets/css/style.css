@@ -1,4 +1,23 @@
-/* Parkitin-käyttöliittymän responsiivinen ja yhteinen ulkoasu. */
+/*
+ * Class names describe the UI component or responsibility they style, rather
+ * than the visual treatment itself. Names use lowercase words separated by
+ * hyphens: for example, .map-center-button identifies the map component and
+ * its centre action, while .payment-success-toast identifies a transient
+ * payment-status message. This keeps styles understandable when colours,
+ * spacing, or layout change.
+ *
+ * A class names a reusable element or component part. A modifier is added as
+ * a second class when it represents a state, such as .map-pin.full or
+ * .admin-tab.active. JavaScript can therefore add or remove state without
+ * replacing the component's base styling. IDs are reserved for unique DOM
+ * elements that TypeScript needs to locate or control, such as #customer-map,
+ * #nav-actions, and #parking-receipt. Do not use IDs for reusable styling.
+ *
+ * New components should use a clear component prefix and a descriptive part:
+ * .profile-field, .lot-field, .slot-item, or .map-booking-popup. Keep nesting
+ * shallow and avoid names based on document position, such as .left-button,
+ * because responsive layouts may move elements without changing their role.
+ */
 body {
     --header-height: 60px;
     margin: 0;
@@ -297,6 +316,30 @@ body {
     display: block;
     width: 100%;
     height: 100%;
+}
+
+.map-zoom-controls {
+    position: absolute;
+    right: 1rem;
+    bottom: 4.5rem;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+}
+
+.map-zoom-button {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    color: #003399;
+    background: #fff;
+    border: 1px solid #bbb;
+    font: 700 1.5rem/1 'Ubuntu', sans-serif;
+    cursor: pointer;
+}
+
+.map-zoom-button + .map-zoom-button {
+    border-top: 0;
 }
 
 .map-booking-popup {

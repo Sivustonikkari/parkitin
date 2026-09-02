@@ -16,7 +16,6 @@ Sovelluksessa on kolme pääosaa:
 2. **PHP REST API** tietokantatoimintojen hallinta ja sähköpostin lähetys.
 3. **Vanilla TypeScript + CSS** Käyttölittumätoiminnot
 
-
 ## Tietokanta
 
 Tietokannan rakenne on tiedostossa `sql/schema.sql`.
@@ -166,7 +165,8 @@ Laskun sähköpostitoiminto on poistettu käytöstä. Maksut hallitaan tietokann
 
 API:ssa on kaksi tunnistautumistapaa:
 
-1. **Kuljettaja- ja integraatio-API**: `X-Api-Key`-otsake. Kehityksen kovakoodattu avain on `DEV_API_KEY`; tuotannossa avaimet voidaan tarkistaa `api_keys`-taulusta.
+1. **Kuljettaja- ja integraatio-API**: `X-Api-Key`-otsake. Protoilua varten on kovakoodattu vakio `DEV_API_KEY`;
+
 2. **Selainkäyttöliittymä**: `Authorization: Bearer SESSION_TOKEN`. Token syntyy kertakäyttöisen sähköpostilinkin kautta ja vanhenee tunnissa.
 
 Omistaja- ja ylläpitäjätoiminnot tarkistavat lisäksi käyttäjän roolin. Asiakkaan Bearer-token ei anna pääsyä hallintatoimintoihin.
@@ -179,13 +179,11 @@ UI käyttää:
 
 - DOM API:a ilman Reactia, Vuea tai muuta UI-kirjastoa
 - vanilla CSS:ää tiedostosta `assets/css/style.css`
-- OpenStreetMapin karttatiilejä
+- OpenStreetMapin tiles-apia
 - selaimen geolocation-API:a käyttäjän sijainnin kysymiseen
-- `pin.svg`-kuvaketta alueiden karttamerkkeihin
-- `me.svg`-kuvaketta oman sijainnin keskityspainikkeeseen
-- `loading-map.jpg`-kuvaa ja animaatiota kartan lataustilassa
+- svg-kuvakkeita pysäköintipaikoille ja kartan keskityskuvakkeelle ja muille kuvakkeille. Ne on piirrettu Corel Draw:ssa-
 
-Kartta käyttää tietokantaan valmiiksi tallennettuja koordinaatteja. Selaimessa ei tehdä Nominatim-geokoodausta, joten kartan lataus ei riipu Nominatimin CORS-käytännöistä.
+Kartta käyttää tietokantaan valmiiksi tallennettuja koordinaatteja. Selaimessa ei tehdä geokoodausta osoitteista, koska siinä menee ikä ja terveys.
 
 ## Roolit
 
@@ -243,11 +241,11 @@ Sähköpostiosoitetta ei voi muuttaa käyttöliittymästä.
 12. Avoin lasku näkyy profiilin maksut-osiossa.
 13. Mock-maksu merkitsee laskun `paid`-tilaan ja siirtää sen historiaan.
 
-## Lokalisaatio
+## Lokalisointi
 
-Lokalisaatio on toteutettu ilman ulkoista kirjastoa.
+Käännöstoiminnot on toteutettu ilman ulkoista kirjastoa.
 
-`i18n/` sisältää yhden JSON-tiedoston jokaista localea varten. Tiedoston rakenne on:
+`i18n/` sisältää yhden JSON-tiedoston jokaista kieli-alueyhdistelmää varten. Tiedoston rakenne on:
 
 ```json
 {
@@ -277,43 +275,22 @@ Avain koostuu kontekstista ja tekstinimestä. Parametrit korvataan `{email}`-tyy
 
 `scripts/digitraffic-mock.json` on Digitrafficin pysäköintidatan muotoa mukaileva GeoJSON-aineisto. Se sisältää mock-kohteita suomalaisissa kaupungeissa.
 
-`expand_digitraffic_mock.php` luo aineistoon lisää leikkimielisesti nimettyjä kohteita. Se poistaa aiemmat `mock-*`-tunnisteiset kohteet ennen uusien luontia, joten komento on toistettavissa.
-
-```bash
-php scripts/expand_digitraffic_mock.php
-php scripts/import_digitraffic.php
-```
-
-Tuontiskripti:
-
-- tarkistaa aineiston
-- johtaa kaupungin postinumerosta
-- käyttää GeoJSON-koordinaatteja
-- lisää alueen ja sen paikat
-- käyttää mock-hintoja `0,50` ja `0,30`
-- ohittaa nimellä jo tuodut alueet
-
-Aineisto on mock-dataa, ei vahvistettu reaaliaikainen Digitraffic-syöte.
-
-## Sähköpostit
-
-Sähköpostien lähetys käyttää tällä hetkellä PHP:n `mail()`-toimintoa PHPMailerin `isMail()`-tilassa. Viestit lähetetään UTF-8-merkistöllä. Kirjautumislinkkien sähköposti on toteutettu `mailer.php`-tiedostossa.
-
 ## Turvallisuusperiaatteet
 
 - Tietokantasalaisuudet ovat sovelluksen asetustiedostossa, jota ei versioida.
 - Selainistunto perustuu kertakäyttöiseen, vanhenevaan Bearer-tunnisteeseen.
 - Hallintatoimintojen roolit tarkistetaan PHP-palvelimella.
 - Käyttäjän sähköposti validoidaan selaimessa ja palvelimella.
-- Admin-rajapinnan roolit tarkistetaan palvelimella. Pelkkää käyttöliittymän piilotusta ei pidä pitää käyttöoikeutena.
+- Admin-rajapinnan roolit tarkistetaan palvelimella.
+- Varsinaista tietosuojatarkistusta ei tälle harjoitustyölle ole tehty.
 
 ## Tiedostot
 
 - `index.php`: selaimen HTML-kuori, header ja assettien välimuistiversiointi
 - `src/app.ts`: vanilla TypeScript -käyttöliittymä, kartta, kirjautuminen ja maksut
-- `assets/js/app.js`: TypeScriptin käännetty selainversio
+- `assets/js/app.js`: TypeScriptin käännetty ja obfuskoitu
 - `assets/css/style.css`: responsiivinen CSS
-- `api/index.php`: REST-reititin
+- `api/index.php`: REST-API
 - `handlers/account.php`: kirjautuminen, profiili, pysäköinti ja maksut
 - `handlers/users.php`: käyttäjien hallinta ja roolirajoitukset
 - `handlers/lots.php`: alueiden ja paikkojen hallinta
@@ -328,5 +305,3 @@ Sähköpostien lähetys käyttää tällä hetkellä PHP:n `mail()`-toimintoa PH
 - `assets/postitoimipaikat.xml`: postinumeroiden ja postitoimipaikkojen lähde
 - `scripts/import_digitraffic.php`: mock-aineiston tuonti
 - `scripts/expand_digitraffic_mock.php`: mock-aineiston laajennus
-
-Sovellus on tällä hetkellä prototyyppi. Pysäköinnin ja maksun liiketoimintalogiikka toimii tietokannan kautta, mutta maksaminen ja osa ulkoisesta pysäköintidatasta ovat tarkoituksella mock-toteutuksia.

@@ -1,5 +1,9 @@
 {
+  "scripts": {
+    "build": "tsc -p tsconfig.json --outDir build/js && javascript-obfuscator build/js/app.js --output assets/js/app.js --compact true --control-flow-flattening false --dead-code-injection false"
+  },
   "devDependencies": {
+    "javascript-obfuscator": "4.1.1",
     "typescript": "5.4.5"
   }
 }
