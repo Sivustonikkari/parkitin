@@ -1,323 +1,127 @@
-// Parkitin frontend UI, localization, and browser-based map view.
-const API_BASE = 'api/index.php';
-const SESSION_KEY = 'parkitin_session_token';
-const LOCALE_KEY = 'parkitin_locale';
+import { API_BASE, clearSessionToken, getSessionToken, setSessionToken } from './api/client';
+import { initI18n } from './i18n/i18n';
+import type { NavView, ProfileData } from './interfaces/models';
+import { getCurrentScreen, setCurrentScreen } from './state/screen';
+import { renderAdminPanel } from './views/admin/panel';
+import { renderDetailsForm } from './views/auth/details';
+import { renderLoginForm } from './views/auth/login';
+import { renderRegisterForm } from './views/auth/register';
+import { renderLogo, renderMessage as sharedMessage, renderUserNav } from './views/common';
+import { renderCustomerMap } from './views/map/customer-map';
+
+const app = document.getElementById('app') as HTMLElement;
+const showMessage = (key: string): void => { setCurrentScreen({ name: 'message', key }); sharedMessage(app, key); };
+const showLogin = (): void => renderLoginForm(app, { showRegister, showMessage });
+const showRegister = (email: string): void => renderRegisterForm(app, email, { showLogin, showMessage });
+function renderNav(role: string, token: string, profile: ProfileData, view: NavView): void { renderUserNav(role, token, view, { showMap: () => showMap(token, role, profile), showProfile: () => renderDetailsForm(app, token, profile, { renderNavigation: () => renderNav(role, token, profile, 'profile'), showLogin, refreshSession: checkSession }), showAdmin: () => renderAdminPanel(app, token, role, profile, { renderNavigation: () => renderNav(role, token, profile, 'admin'), refreshSession: checkSession }), showLogin }); }
+function showMap(token: string, role: string, profile: ProfileData): void { setCurrentScreen({ name: 'map' }); app.classList.add('map-view'); app.innerHTML = ''; renderLogo(app); renderNav(role, token, profile, 'map'); void renderCustomerMap(app, token, { refreshSession: checkSession }); }
+function showWelcome(email: string, role: string, token: string, profile: ProfileData): void { setCurrentScreen({ name: 'welcome', email }); showMap(token, role, profile); setCurrentScreen({ name: 'welcome', email }); }
+async function verifyToken(token: string): Promise<void> { const res = await fetch(`${API_BASE}?resource=verify&token=${encodeURIComponent(token)}`); if (!res.ok) { showLogin(); return; } const data = await res.json(); setSessionToken(data.session_token); window.history.replaceState({}, '', window.location.pathname); void checkSession(); }
+async function checkSession(): Promise<void> { const token = getSessionToken(); if (!token) { showLogin(); return; } const res = await fetch(`${API_BASE}?resource=me`, { headers: { Authorization: `Bearer ${token}` } }); if (!res.ok) { clearSessionToken(); showLogin(); return; } const data = await res.json(); if (data.needs_details) { renderDetailsForm(app, token, undefined, { renderNavigation: () => undefined, showLogin, refreshSession: checkSession }); return; } showWelcome(data.email, data.role, token, data); }
+function route(): void { const token = new URLSearchParams(window.location.search).get('token'); if (token) { void verifyToken(token); return; } void checkSession(); }
+function retranslate(): void { const screen = getCurrentScreen(); if (!screen) return; if (screen.name === 'login') { showLogin(); return; } if (screen.name === 'register') { showRegister(screen.email); return; } if (screen.name === 'message') { showMessage(screen.key); return; } void checkSession(); }
+void initI18n(retranslate).then(route);/*
+import { initI18n } from './i18n/i18n';
+import type { NavView, ProfileData } from './interfaces/models';
+import { getCurrentScreen, setCurrentScreen } from './state/screen';
+import { renderAdminPanel } from './views/admin/panel';
+import { renderDetailsForm } from './views/auth/details';
+import { renderLoginForm } from './views/auth/login';
+import { renderRegisterForm } from './views/auth/register';
+import { renderLogo, renderMessage as renderSharedMessage, renderUserNav } from './views/common';
+import { renderCustomerMap } from './views/map/customer-map';
 
 const app = document.getElementById('app') as HTMLElement;
 
-interface LocaleInfo {
-    locale: string;
-    name: string;
-    default: boolean;
-}
-
-type Translations = Record<string, Record<string, string>>;
-
-let translations: Translations = {};
-
-interface ProfileData {
-    email: string;
-    reg_number: string | null;
-    first_name: string | null;
-    last_name: string | null;
-    postal_code: string | null;
-    city: string | null;
-}
-
-type AppScreen =
-    | { name: 'login' }
-    | { name: 'register' }
-    | { name: 'details' }
-    | { name: 'message'; key: string }
-    | { name: 'welcome'; email: string }
-    | { name: 'map' }
-    | { name: 'admin' };
-
-let currentScreen: AppScreen = { name: 'login' };
-
-function trans(key: string, params?: Record<string, string>): string {
-    const [context, field] = key.split('.');
-    let str = translations[context]?.[field] ?? key;
-
-    if (params) {
-        for (const [name, value] of Object.entries(params)) {
-            str = str.replace(`{${name}}`, value);
-        }
-    }
-
-    return str;
-}
-
-async function loadTranslations(locale: string): Promise<void> {
-    const res = await fetch(`i18n/${locale}.json`);
-    const data = await res.json();
-    translations = data.translations ?? {};
-}
-
-function renderLanguageSwitcher(locales: LocaleInfo[], current: string): void {
-    const container = document.getElementById('lang-switcher');
-    if (!container) {
-        return;
-    }
-    container.innerHTML = '';
-
-    const select = document.createElement('select');
-    select.id = 'locale-select';
-
-    for (const l of locales) {
-        const option = document.createElement('option');
-        option.value = l.locale;
-        option.textContent = l.name;
-        option.selected = l.locale === current;
-        select.appendChild(option);
-    }
-
-    select.addEventListener('change', async () => {
-        sessionStorage.setItem(LOCALE_KEY, select.value);
-        await loadTranslations(select.value);
-        retranslateCurrentScreen();
-    });
-
-    container.appendChild(select);
-}
-
-// re-applies text/placeholders on the currently visible screen without touching input values
-function retranslateCurrentScreen(): void {
-    const logout = document.getElementById('logout');
-    if (logout) logout.textContent = trans('login.logout');
-    document.querySelectorAll<HTMLElement>('.nav-button[data-translation-key]').forEach((el) => {
-        if (el.dataset.translationKey) el.textContent = trans(el.dataset.translationKey);
-    });
-    const profileIcon = document.querySelector('.nav-profile-icon') as HTMLImageElement | null;
-    if (profileIcon) {
-        profileIcon.alt = trans('profile.open');
-        const profileButton = document.getElementById('primary-nav-action');
-        if (profileButton) profileButton.title = trans('profile.open');
-    }
-
-    switch (currentScreen.name) {
-        case 'login': {
-            const input = document.getElementById('login-email') as HTMLInputElement | null;
-            const button = document.getElementById('login-submit');
-            if (input) input.placeholder = trans('login.emailPlaceholder');
-            if (button) button.textContent = trans('login.submit');
-            break;
-        }
-        case 'register': {
-            const info = document.getElementById('register-info');
-            const button = document.getElementById('register-submit');
-            if (info) info.innerHTML = trans('register.info');
-            if (button) button.textContent = trans('register.submit');
-            break;
-        }
-        case 'details': {
-            const reg = document.getElementById('details-reg-number') as HTMLInputElement | null;
-            const first = document.getElementById('details-first-name') as HTMLInputElement | null;
-            const last = document.getElementById('details-last-name') as HTMLInputElement | null;
-            const postal = document.getElementById('details-postal-code') as HTMLInputElement | null;
-            const city = document.getElementById('details-city') as HTMLInputElement | null;
-            const button = document.getElementById('details-submit');
-            const emailInfo = document.getElementById('email-info');
-            const deleteButton = document.getElementById('delete-profile');
-            if (reg) reg.placeholder = trans('details.regNumberPlaceholder');
-            if (first) first.placeholder = trans('details.firstNamePlaceholder');
-            if (last) last.placeholder = trans('details.lastNamePlaceholder');
-            if (postal) postal.placeholder = trans('details.postalCodePlaceholder');
-            if (city) city.placeholder = trans('details.cityPlaceholder');
-            if (button) button.textContent = trans('details.submit');
-            if (emailInfo) emailInfo.textContent = trans('profile.emailInfo');
-            if (deleteButton) deleteButton.textContent = trans('profile.delete');
-            break;
-        }
-        case 'message': {
-            const p = document.getElementById('message');
-            if (p) p.textContent = trans(currentScreen.key);
-            break;
-        }
-        case 'welcome': {
-            const p = document.getElementById('welcome');
-            if (p) p.textContent = trans('welcome.greeting', { email: currentScreen.email });
-            break;
-        }
-        case 'map': {
-            const centerButton = document.getElementById('map-center-button');
-            if (centerButton) {
-                centerButton.title = trans('map.center');
-                centerButton.setAttribute('aria-label', trans('map.center'));
-            }
-            break;
-        }
-    }
-}
-
-async function initI18n(): Promise<void> {
-    const res = await fetch('i18n/index.php');
-    const locales: LocaleInfo[] = await res.json();
-
-    if (locales.length === 0) {
-        return;
-    }
-
-    const defaultLocale = locales.find((l) => l.default) ?? locales[0];
-    const saved = sessionStorage.getItem(LOCALE_KEY);
-    const current = locales.find((l) => l.locale === saved) ?? defaultLocale;
-
-    await loadTranslations(current.locale);
-
-    if (locales.length > 1) {
-        renderLanguageSwitcher(locales, current.locale);
-    }
-}
-
-let postOfficesPromise: Promise<Map<string, string>> | null = null;
-
-function loadPostOffices(): Promise<Map<string, string>> {
-    if (postOfficesPromise) {
-        return postOfficesPromise;
-    }
-
-    postOfficesPromise = fetch('assets/postitoimipaikat.xml')
-        .then((res) => res.text())
-        .then((text) => {
-            const xml = new DOMParser().parseFromString(text, 'application/xml');
-            const offices = new Map<string, string>();
-            for (const office of xml.querySelectorAll('toimipaikka')) {
-                const code = office.querySelector('postinumero')?.textContent?.trim() ?? '';
-                const name = (office.querySelector('nimi')?.textContent ?? '')
-                    .split('-')
-                    .map((part) => part.trim().replace(/\s+\d+$/, ''))
-                    .filter(Boolean)
-                    .join(' - ');
-                if (code && name && !offices.has(code)) {
-                    offices.set(code, name);
-                }
-            }
-            return offices;
-        });
-
-    return postOfficesPromise;
-}
-
-function getSessionToken(): string | null {
-    return localStorage.getItem(SESSION_KEY);
-}
-
-function setSessionToken(token: string): void {
-    localStorage.setItem(SESSION_KEY, token);
-}
-
-function clearSessionToken(): void {
-    localStorage.removeItem(SESSION_KEY);
-}
-
-function validateEmailInput(input: HTMLInputElement): boolean {
-    input.value = input.value.trim();
-    if (input.checkValidity()) {
-        return true;
-    }
-    input.reportValidity();
-    return false;
-}
-
-type NavView = 'map' | 'profile' | 'admin';
-
-function renderUserNav(role: string, token: string, profile: ProfileData, currentView: NavView): void {
-    const actions = document.getElementById('nav-actions');
-    if (!actions) return;
-    actions.innerHTML = '';
-
-    if (currentView !== 'map') {
-        const mapButton = document.createElement('button');
-        mapButton.type = 'button';
-        mapButton.className = 'nav-button';
-        mapButton.dataset.translationKey = 'map.findParking';
-        mapButton.textContent = trans('map.findParking');
-        mapButton.addEventListener('click', () => renderParkingMapView(token, role, profile));
-        actions.appendChild(mapButton);
-    }
-
-    if (currentView !== 'profile') {
-        const profileButton = document.createElement('button');
-        profileButton.id = 'primary-nav-action';
-        profileButton.type = 'button';
-        profileButton.className = 'nav-icon-button';
-        profileButton.title = trans('profile.open');
-
-        const icon = document.createElement('img');
-        icon.className = 'nav-profile-icon';
-        icon.src = 'assets/profile-white.svg';
-        icon.alt = trans('profile.open');
-        profileButton.appendChild(icon);
-
-        void fetch(`${API_BASE}?resource=payments&status=open`, { headers: { Authorization: `Bearer ${token}` } })
-            .then((res) => res.json())
-            .then((payments) => {
-                icon.src = payments.length ? 'assets/profile-red.svg' : 'assets/profile-white.svg';
-            });
-
-        profileButton.addEventListener('click', () => renderDetailsForm(token, profile, role));
-        actions.appendChild(profileButton);
-    }
-
-    if ((role === 'owner' || role === 'admin') && currentView !== 'admin') {
-        const adminButton = document.createElement('button');
-        adminButton.type = 'button';
-        adminButton.className = 'nav-button';
-        adminButton.dataset.translationKey = 'admin.openPanel';
-        adminButton.textContent = trans('admin.openPanel');
-        adminButton.addEventListener('click', () => renderAdminPanel(token, role, profile));
-        actions.appendChild(adminButton);
-    }
-
-    const logout = document.createElement('a');
-    logout.id = 'logout';
-    logout.className = 'logout-link';
-    logout.href = '#';
-    logout.textContent = trans('login.logout');
-    logout.addEventListener('click', (event) => {
-        event.preventDefault();
-        clearSessionToken();
-        actions.innerHTML = '';
-        renderLoginForm();
-    });
-    actions.appendChild(logout);
-}
-
-function renderLogo(container: HTMLElement): void {
-    void container;
-}
-
 function renderMessage(key: string): void {
-    currentScreen = { name: 'message', key };
-    app.classList.remove('map-view');
-    const actions = document.getElementById('nav-actions');
-    if (actions) actions.innerHTML = '';
-    app.innerHTML = '';
-    renderLogo(app);
-    const p = document.createElement('p');
-    p.id = 'message';
-    p.className = 'message';
-    p.textContent = trans(key);
-    app.appendChild(p);
+    setCurrentScreen({ name: 'message', key });
+    renderSharedMessage(app, key);
+}
+
+function renderLoginFormView(): void {
+    renderLoginForm(app, { showRegister: renderRegisterFormView, showMessage: renderMessage });
+}
+
+function renderRegisterFormView(email: string): void {
+    renderRegisterForm(app, email, { showLogin: renderLoginFormView, showMessage: renderMessage });
+}
+
+function renderNavigation(role: string, token: string, profile: ProfileData, currentView: NavView): void {
+    renderUserNav(role, token, currentView, {
+        showMap: () => renderParkingMapView(token, role, profile),
+        showProfile: () => renderDetailsForm(app, token, profile, {
+            renderNavigation: () => renderNavigation(role, token, profile, 'profile'),
+            showLogin: renderLoginFormView,
+            refreshSession: checkSession,
+        }),
+        showAdmin: () => renderAdminPanel(app, token, role, profile, {
+            renderNavigation: () => renderNavigation(role, token, profile, 'admin'),
+            refreshSession: checkSession,
+        }),
+        showLogin: renderLoginFormView,
+    });
 }
 
 function renderWelcome(email: string, role: string, token: string, profile: ProfileData): void {
-    currentScreen = { name: 'welcome', email };
+    setCurrentScreen({ name: 'welcome', email });
     app.classList.add('map-view');
     app.innerHTML = '';
     renderLogo(app);
-    renderUserNav(role, token, profile, 'map');
-    void renderCustomerMap(token);
+    renderNavigation(role, token, profile, 'map');
+    void renderCustomerMap(app, token, { refreshSession: checkSession });
 }
 
 function renderParkingMapView(token: string, role: string, profile: ProfileData): void {
-    currentScreen = { name: 'map' };
+    setCurrentScreen({ name: 'map' });
     app.classList.add('map-view');
     app.innerHTML = '';
     renderLogo(app);
-    renderUserNav(role, token, profile, 'map');
-    void renderCustomerMap(token);
+    renderNavigation(role, token, profile, 'map');
+    void renderCustomerMap(app, token, { refreshSession: checkSession });
 }
+
+async function verifyToken(token: string): Promise<void> {
+    const res = await fetch(`${API_BASE}?resource=verify&token=${encodeURIComponent(token)}`);
+    if (!res.ok) { renderLoginFormView(); return; }
+    const data = await res.json();
+    setSessionToken(data.session_token);
+    window.history.replaceState({}, '', window.location.pathname);
+    void checkSession();
+}
+
+async function checkSession(): Promise<void> {
+    const token = getSessionToken();
+    if (!token) { renderLoginFormView(); return; }
+    const res = await fetch(`${API_BASE}?resource=me`, { headers: { Authorization: `Bearer ${token}` } });
+    if (!res.ok) { clearSessionToken(); renderLoginFormView(); return; }
+    const data = await res.json();
+    if (data.needs_details) {
+        renderDetailsForm(app, token, undefined, { renderNavigation: () => undefined, showLogin: renderLoginFormView, refreshSession: checkSession });
+        return;
+    }
+    renderWelcome(data.email, data.role, token, data);
+}
+
+function route(): void {
+    const token = new URLSearchParams(window.location.search).get('token');
+    if (token) { void verifyToken(token); return; }
+    void checkSession();
+}
+
+function retranslateCurrentScreen(): void {
+    const screen = getCurrentScreen();
+    if (!screen) return;
+    if (screen.name === 'login') { renderLoginFormView(); return; }
+    if (screen.name === 'register') { renderRegisterFormView(screen.email); return; }
+    if (screen.name === 'message') { renderMessage(screen.key); return; }
+    void checkSession();
+}
+
+async function bootstrap(): Promise<void> {
+    await initI18n(retranslateCurrentScreen);
+    route();
+}
+
 
 async function renderCustomerMap(token: string): Promise<void> {
     const section = document.createElement('section');
@@ -354,29 +158,25 @@ async function renderCustomerMap(token: string): Promise<void> {
         const active = document.createElement('div');
         active.id = 'active-parking';
         const activeText = document.createElement('span');
+        let elapsedTimer = 0;
+        let statusTimer = 0;
+        let parkingEnded = false;
+        const formatEuro = (price: number): string => new Intl.NumberFormat('fi-FI', {
+            style: 'currency',
+            currency: 'EUR',
+        }).format(price).replace(/\u00a0/g, ' ');
         const showParking = (parking: { lot_name: string; start_time: string; price: string }): void => {
             const started = new Date(parking.start_time.replace(' ', 'T'));
             const elapsed = Math.max(0, Math.floor((Date.now() - started.getTime()) / 1000));
             activeText.textContent = trans('parking.active', {
                 lot: parking.lot_name,
                 time: `${Math.floor(elapsed / 3600)}:${String(Math.floor(elapsed / 60) % 60).padStart(2, '0')}:${String(elapsed % 60).padStart(2, '0')}`,
-                price: Number(parking.price).toFixed(2),
+                price: formatEuro(Number(parking.price)),
             });
         };
-        showParking(status.parking);
-        const stop = document.createElement('button');
-        stop.className = 'stop-parking';
-        stop.type = 'button';
-        stop.textContent = trans('parking.stop');
-        let elapsedTimer = 0;
-        let statusTimer = 0;
-        stop.addEventListener('click', async () => {
-            const response = await fetch(`${API_BASE}?resource=parking_stop`, {
-                method: 'POST', headers: { Authorization: `Bearer ${token}` },
-            });
-            if (!response.ok) return;
-
-            const receipt = await response.json();
+        const showReceipt = (receipt: { duration_minutes: number; price_charged: string }): void => {
+            if (parkingEnded) return;
+            parkingEnded = true;
             window.clearInterval(elapsedTimer);
             window.clearInterval(statusTimer);
             active.remove();
@@ -384,8 +184,7 @@ async function renderCustomerMap(token: string): Promise<void> {
             const receiptPopup = document.createElement('div');
             receiptPopup.id = 'parking-receipt';
             receiptPopup.className = 'map-booking-popup parking-receipt';
-            const duration = Number(receipt.duration_minutes);
-            const time = `${Math.floor(duration / 60)}h ${String(duration % 60).padStart(2, '0')}min`;
+            const time = `${Math.floor(receipt.duration_minutes / 60)}h ${String(receipt.duration_minutes % 60).padStart(2, '0')}min`;
             const text = document.createElement('span');
             text.textContent = trans('parking.finished', {
                 time,
@@ -400,6 +199,24 @@ async function renderCustomerMap(token: string): Promise<void> {
             receiptPopup.append(close, text);
             section.appendChild(receiptPopup);
             window.setTimeout(() => document.addEventListener('click', dismiss, { once: true }), 0);
+        };
+        showParking(status.parking);
+        const stop = document.createElement('button');
+        stop.className = 'stop-parking';
+        stop.type = 'button';
+        stop.textContent = trans('parking.stop');
+        stop.addEventListener('click', async () => {
+            const response = await fetch(`${API_BASE}?resource=parking_stop`, {
+                method: 'POST', headers: { Authorization: `Bearer ${token}` },
+            });
+            if (response.ok) {
+                showReceipt(await response.json());
+                return;
+            }
+            if (response.status === 404) {
+                stop.textContent = trans('parking.cameraStopped');
+                stop.disabled = true;
+            }
         });
         active.append(activeText, stop);
         section.appendChild(active);
@@ -412,8 +229,15 @@ async function renderCustomerMap(token: string): Promise<void> {
                 headers: { Authorization: `Bearer ${token}` },
             });
             const latest = await refresh.json();
-            if (latest.parking) showParking(latest.parking);
-        }, 30000);
+            if (latest.parking) {
+                showParking(latest.parking);
+                return;
+            }
+            const receiptResponse = await fetch(`${API_BASE}?resource=parking_receipt&parking_id=${status.parking.id}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            if (receiptResponse.ok) showReceipt(await receiptResponse.json());
+        }, 5000);
     }
 
     const res = await fetch(`${API_BASE}?resource=map_lots`, {
@@ -598,7 +422,7 @@ async function renderCustomerMap(token: string): Promise<void> {
 }
 
 function renderDetailsForm(token: string, profile?: ProfileData, role: string = 'customer'): void {
-    currentScreen = { name: 'details' };
+    setCurrentScreen({ name: 'details' });
     app.classList.remove('map-view');
     app.innerHTML = '';
     renderLogo(app);
@@ -733,14 +557,6 @@ function renderDetailsForm(token: string, profile?: ProfileData, role: string = 
     });
 }
 
-interface Payment {
-    id: number;
-    lot_name: string;
-    start_time: string;
-    end_time: string;
-    price_charged: string;
-}
-
 async function renderPayments(container: HTMLElement, token: string): Promise<void> {
     const section = document.createElement('section');
     section.className = 'payments';
@@ -850,7 +666,7 @@ async function renderPayments(container: HTMLElement, token: string): Promise<vo
 }
 
 function renderLoginForm(): void {
-    currentScreen = { name: 'login' };
+    setCurrentScreen({ name: 'login' });
     app.classList.remove('map-view');
     const actions = document.getElementById('nav-actions');
     if (actions) actions.innerHTML = '';
@@ -900,7 +716,7 @@ function renderLoginForm(): void {
 }
 
 function renderRegisterForm(email: string): void {
-    currentScreen = { name: 'register' };
+    setCurrentScreen({ name: 'register', email });
     app.classList.remove('map-view');
     const actions = document.getElementById('nav-actions');
     if (actions) actions.innerHTML = '';
@@ -1009,67 +825,27 @@ function route(): void {
     checkSession();
 }
 
-interface ParkingLot {
-    id: number;
-    name: string;
-    address: string;
-    city: string;
-    postal_code: string;
-    latitude: string | null;
-    longitude: string | null;
-    info: string | null;
-    capacity: number;
-    price_first_3h: string;
-    price_per_extra_hour: string;
-}
+function retranslateCurrentScreen(): void {
+    const screen = getCurrentScreen();
+    if (!screen) return;
 
-interface MapLot {
-    id: number;
-    name: string;
-    address: string;
-    city: string;
-    postal_code: string;
-    latitude: string | null;
-    longitude: string | null;
-    info: string | null;
-    capacity: number;
-    reserved_slots: number;
-    available_slots: number;
-    price_first_3h: string;
-    price_per_extra_hour: string;
-}
-
-interface ParkingSlot {
-    id?: number;
-    name: string | null;
-    is_active: number | boolean;
-}
-
-interface AdminUser {
-    id: number;
-    reg_number: string | null;
-    email: string | null;
-    first_name: string | null;
-    last_name: string | null;
-    postal_code: string | null;
-    city: string | null;
-    role: string;
-    status: string;
-}
-
-async function adminFetch(query: string, token: string, options: RequestInit = {}): Promise<Response> {
-    return fetch(`${API_BASE}?${query}`, {
-        ...options,
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-            ...(options.headers ?? {}),
-        },
-    });
+    switch (screen.name) {
+        case 'login':
+            renderLoginForm();
+            return;
+        case 'register':
+            renderRegisterForm(screen.email);
+            return;
+        case 'message':
+            renderMessage(screen.key);
+            return;
+        default:
+            void checkSession();
+    }
 }
 
 function renderAdminPanel(token: string, role: string, profile: ProfileData): void {
-    currentScreen = { name: 'admin' };
+    setCurrentScreen({ name: 'admin' });
     app.classList.remove('map-view');
     app.innerHTML = '';
     renderLogo(app);
@@ -1520,8 +1296,9 @@ async function renderUsersSection(container: HTMLElement, token: string, actorRo
 }
 
 async function bootstrap(): Promise<void> {
-    await initI18n();
+    await initI18n(retranslateCurrentScreen);
     route();
 }
 
 bootstrap();
+*/

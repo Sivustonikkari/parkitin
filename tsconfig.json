@@ -1,9 +1,9 @@
 {
     "compilerOptions": {
         "target": "ES2019",
-        "module": "none",
-        "outDir": "assets/js",
-        "rootDir": "src",
+        "module": "ESNext",
+        "moduleResolution": "Bundler",
+        "noEmit": true,
         "strict": true,
         "noEmitOnError": true
     },

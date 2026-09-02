@@ -1,8 +1,9 @@
 {
   "scripts": {
-    "build": "tsc -p tsconfig.json --outDir build/js && javascript-obfuscator build/js/app.js --output assets/js/app.js --compact true --control-flow-flattening false --dead-code-injection false"
+    "build": "tsc -p tsconfig.json && esbuild src/app.ts --bundle --target=es2019 --outfile=build/js/app.js && javascript-obfuscator build/js/app.js --output assets/js/app.js --compact true --control-flow-flattening false --dead-code-injection false"
   },
   "devDependencies": {
+    "esbuild": "0.17.19",
     "javascript-obfuscator": "4.1.1",
     "typescript": "5.4.5"
   }
