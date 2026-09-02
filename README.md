@@ -1,5 +1,7 @@
 # Parkitin
 
+![Parkitin](assets/parkitin.svg)
+
 Parkitin on PHP:n, MySQL:n ja selaimessa ajettavan TypeScript-käyttöliittymän muodostama pysäköintipalvelun prototyyppi. Käyttöliittymä käyttää vain vanillaa TypeScriptiä ja CSS:ää. Erillistä käyttöliittymäkirjastoa tai karttakirjastoa ei käytetä.
 
 Palvelu sijaitsee tuotannossa osoitteessa:
