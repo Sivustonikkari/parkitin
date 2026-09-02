@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "target": "ES2019",
+        "module": "none",
+        "outDir": "assets/js",
+        "rootDir": "src",
+        "strict": true,
+        "noEmitOnError": true
+    },
+    "include": ["src/**/*.ts"]
+}

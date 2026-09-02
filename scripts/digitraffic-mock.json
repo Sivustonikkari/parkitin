@@ -1,0 +1,1986 @@
+{
+    "type": "FeatureCollection",
+    "dataUpdatedTime": "2026-09-02T10:00:00.000Z",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    24.9414,
+                    60.1699
+                ]
+            },
+            "properties": {
+                "id": "1",
+                "name": "P-Kluuvi",
+                "streetAddress": "Kluuvikatu 5",
+                "postalCode": "00100",
+                "operatorName": "Q-Park Finland Oy",
+                "maxCapacity": 500,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    22.2666,
+                    60.4518
+                ]
+            },
+            "properties": {
+                "id": "2",
+                "name": "P-Toriparkki",
+                "streetAddress": "Yliopistonkatu 30",
+                "postalCode": "20100",
+                "operatorName": "Turun Toriparkki Oy",
+                "maxCapacity": 620,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    23.761,
+                    61.4978
+                ]
+            },
+            "properties": {
+                "id": "3",
+                "name": "P-Ratina",
+                "streetAddress": "Ratinankatu 2",
+                "postalCode": "33100",
+                "operatorName": "Tampereen Pysäköintitalot Oy",
+                "maxCapacity": 850,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    23.755,
+                    61.495
+                ]
+            },
+            "properties": {
+                "id": "4",
+                "name": "P-Frenckell",
+                "streetAddress": "Rautatienkatu 21",
+                "postalCode": "33100",
+                "operatorName": "Tampereen Pysäköintitalot Oy",
+                "maxCapacity": 400,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    25.7473,
+                    62.2426
+                ]
+            },
+            "properties": {
+                "id": "5",
+                "name": "P-Forum",
+                "streetAddress": "Kauppakatu 27",
+                "postalCode": "40100",
+                "operatorName": "Jyväskylän Pysäköinti Oy",
+                "maxCapacity": 350,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    25.735,
+                    62.24
+                ]
+            },
+            "properties": {
+                "id": "6",
+                "name": "P-Paviljonki",
+                "streetAddress": "Lutakonaukio 12",
+                "postalCode": "40100",
+                "operatorName": "Jyväskylän Pysäköinti Oy",
+                "maxCapacity": 280,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    21.6158,
+                    63.0951
+                ]
+            },
+            "properties": {
+                "id": "7",
+                "name": "P-Rewell",
+                "streetAddress": "Rewellinkatu 1",
+                "postalCode": "65100",
+                "operatorName": "Vaasan Pysäköinti Oy",
+                "maxCapacity": 260,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    27.6782,
+                    62.8925
+                ]
+            },
+            "properties": {
+                "id": "8",
+                "name": "P-Matkus",
+                "streetAddress": "Puijonkatu 27",
+                "postalCode": "70100",
+                "operatorName": "Kuopion Pysäköinti Oy",
+                "maxCapacity": 300,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    29.7636,
+                    62.601
+                ]
+            },
+            "properties": {
+                "id": "9",
+                "name": "P-Rantakatu",
+                "streetAddress": "Rantakatu 27",
+                "postalCode": "80100",
+                "operatorName": "Joensuun Pysäköinti Oy",
+                "maxCapacity": 210,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    25.4651,
+                    65.0121
+                ]
+            },
+            "properties": {
+                "id": "10",
+                "name": "P-Wanha Raatihuone",
+                "streetAddress": "Kirkkokatu 8",
+                "postalCode": "90100",
+                "operatorName": "Oulun Pysäköinti Oy",
+                "maxCapacity": 300,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    25.7294,
+                    66.5025
+                ]
+            },
+            "properties": {
+                "id": "11",
+                "name": "P-Sampokeskus",
+                "streetAddress": "Koskikatu 25",
+                "postalCode": "96100",
+                "operatorName": "Rovaniemen Pysäköinti Oy",
+                "maxCapacity": 220,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    25.6612,
+                    60.9827
+                ]
+            },
+            "properties": {
+                "id": "12",
+                "name": "P-Trio",
+                "streetAddress": "Aleksanterinkatu 18",
+                "postalCode": "15110",
+                "operatorName": "Lahden Pysäköinti Oy",
+                "maxCapacity": 400,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    24.4649,
+                    60.993
+                ]
+            },
+            "properties": {
+                "id": "13",
+                "name": "P-Linja",
+                "streetAddress": "Raatihuoneenkatu 9",
+                "postalCode": "13100",
+                "operatorName": "Hämeenlinnan Pysäköinti Oy",
+                "maxCapacity": 180,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    21.7972,
+                    61.4851
+                ]
+            },
+            "properties": {
+                "id": "14",
+                "name": "P-Puuvilla",
+                "streetAddress": "Siltapuistonkatu 14",
+                "postalCode": "28100",
+                "operatorName": "Porin Pysäköinti Oy",
+                "maxCapacity": 240,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    22.8419,
+                    62.7935
+                ]
+            },
+            "properties": {
+                "id": "15",
+                "name": "P-Areena",
+                "streetAddress": "Kauppatori 1",
+                "postalCode": "60100",
+                "operatorName": "Seinäjoen Pysäköinti Oy",
+                "maxCapacity": 170,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    27.2812,
+                    61.6885
+                ]
+            },
+            "properties": {
+                "id": "16",
+                "name": "P-Naisvuori",
+                "streetAddress": "Porrassalmenkatu 15",
+                "postalCode": "50100",
+                "operatorName": "Mikkelin Pysäköinti Oy",
+                "maxCapacity": 150,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    26.7042,
+                    60.8681
+                ]
+            },
+            "properties": {
+                "id": "17",
+                "name": "P-Kouvola",
+                "streetAddress": "Salpausselänkatu 30",
+                "postalCode": "45100",
+                "operatorName": "Kouvolan Pysäköinti Oy",
+                "maxCapacity": 190,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    25.2097,
+                    60.2934
+                ]
+            },
+            "properties": {
+                "id": "18",
+                "name": "P-Tikkurila",
+                "streetAddress": "Asematie 4",
+                "postalCode": "01300",
+                "operatorName": "Vantaan Pysäköinti Oy",
+                "maxCapacity": 260,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    24.6559,
+                    60.2055
+                ]
+            },
+            "properties": {
+                "id": "19",
+                "name": "P-Sello",
+                "streetAddress": "Leppävaarankatu 3",
+                "postalCode": "02100",
+                "operatorName": "Espoon Pysäköinti Oy",
+                "maxCapacity": 500,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    28.8785,
+                    61.0583
+                ]
+            },
+            "properties": {
+                "id": "20",
+                "name": "P-Olavinlinna",
+                "streetAddress": "Olavinkatu 27",
+                "postalCode": "57100",
+                "operatorName": "Savonlinnan Pysäköinti Oy",
+                "maxCapacity": 130,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    27.7278,
+                    64.2273
+                ]
+            },
+            "properties": {
+                "id": "21",
+                "name": "P-Kajaanintalo",
+                "streetAddress": "Pohjolankatu 4",
+                "postalCode": "87100",
+                "operatorName": "Kajaanin Pysäköinti Oy",
+                "maxCapacity": 160,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    24.930400000000002,
+                    60.161899999999996
+                ]
+            },
+            "properties": {
+                "id": "mock-1",
+                "name": "P-Avaruuskapseli Helsinki",
+                "streetAddress": "Parkkikatu 1",
+                "postalCode": "00100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 40,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    24.651899999999998,
+                    60.2015
+                ]
+            },
+            "properties": {
+                "id": "mock-2",
+                "name": "P-Kumisaapas Espoo",
+                "streetAddress": "Parkkikatu 2",
+                "postalCode": "02100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 77,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    25.2097,
+                    60.2934
+                ]
+            },
+            "properties": {
+                "id": "mock-3",
+                "name": "P-Kanelipulla Vantaa",
+                "streetAddress": "Parkkikatu 3",
+                "postalCode": "01300",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 114,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    23.765,
+                    61.501799999999996
+                ]
+            },
+            "properties": {
+                "id": "mock-4",
+                "name": "P-Saunavuoro Tampere",
+                "streetAddress": "Parkkikatu 4",
+                "postalCode": "33100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 151,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    22.2746,
+                    60.4598
+                ]
+            },
+            "properties": {
+                "id": "mock-5",
+                "name": "P-Muumimuki Turku",
+                "streetAddress": "Parkkikatu 5",
+                "postalCode": "20100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 188,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    25.7393,
+                    62.2346
+                ]
+            },
+            "properties": {
+                "id": "mock-6",
+                "name": "P-Perunamuusi Jyväskylä",
+                "streetAddress": "Parkkikatu 6",
+                "postalCode": "40100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 225,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    25.4611,
+                    65.0081
+                ]
+            },
+            "properties": {
+                "id": "mock-7",
+                "name": "P-Sukka Hukassa Oulu",
+                "streetAddress": "Parkkikatu 7",
+                "postalCode": "90100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 262,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    25.6612,
+                    60.9827
+                ]
+            },
+            "properties": {
+                "id": "mock-8",
+                "name": "P-Hyppivä Herne Lahti",
+                "streetAddress": "Parkkikatu 8",
+                "postalCode": "15110",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 299,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    27.6822,
+                    62.896499999999996
+                ]
+            },
+            "properties": {
+                "id": "mock-9",
+                "name": "P-Kahvitauko Kuopio",
+                "streetAddress": "Parkkikatu 9",
+                "postalCode": "70100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 76,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    21.8052,
+                    61.493100000000005
+                ]
+            },
+            "properties": {
+                "id": "mock-10",
+                "name": "P-Pyörivä Poro Pori",
+                "streetAddress": "Parkkikatu 10",
+                "postalCode": "28100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 113,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    26.6962,
+                    60.860099999999996
+                ]
+            },
+            "properties": {
+                "id": "mock-11",
+                "name": "P-Naurava Noki Kouvola",
+                "streetAddress": "Parkkikatu 11",
+                "postalCode": "45100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 150,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    29.7596,
+                    62.597
+                ]
+            },
+            "properties": {
+                "id": "mock-12",
+                "name": "P-Vohvelivaunu Joensuu",
+                "streetAddress": "Parkkikatu 12",
+                "postalCode": "80100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 187,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    21.6158,
+                    63.0951
+                ]
+            },
+            "properties": {
+                "id": "mock-13",
+                "name": "P-Pikku Pulla Vaasa",
+                "streetAddress": "Parkkikatu 13",
+                "postalCode": "65100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 224,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    25.7334,
+                    66.5065
+                ]
+            },
+            "properties": {
+                "id": "mock-14",
+                "name": "P-Kuunsilta Rovaniemi",
+                "streetAddress": "Parkkikatu 14",
+                "postalCode": "96100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 261,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    22.849899999999998,
+                    62.801500000000004
+                ]
+            },
+            "properties": {
+                "id": "mock-15",
+                "name": "P-Hassu Hattu Seinäjoki",
+                "streetAddress": "Parkkikatu 15",
+                "postalCode": "60100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 298,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    28.1807,
+                    61.0507
+                ]
+            },
+            "properties": {
+                "id": "mock-16",
+                "name": "P-Salmiakki Lappeenranta",
+                "streetAddress": "Parkkikatu 16",
+                "postalCode": "53100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 75,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    24.4609,
+                    60.989000000000004
+                ]
+            },
+            "properties": {
+                "id": "mock-17",
+                "name": "P-Pannukakku Hämeenlinna",
+                "streetAddress": "Parkkikatu 17",
+                "postalCode": "13100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 112,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    25.6651,
+                    60.3927
+                ]
+            },
+            "properties": {
+                "id": "mock-18",
+                "name": "P-Paavo Parkki Porvoo",
+                "streetAddress": "Parkkikatu 18",
+                "postalCode": "06100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 149,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    23.134700000000002,
+                    63.8425
+                ]
+            },
+            "properties": {
+                "id": "mock-19",
+                "name": "P-Talviturkki Kokkola",
+                "streetAddress": "Parkkikatu 19",
+                "postalCode": "67100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 186,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    26.953799999999998,
+                    60.4744
+                ]
+            },
+            "properties": {
+                "id": "mock-20",
+                "name": "P-Villapaita Kotka",
+                "streetAddress": "Parkkikatu 20",
+                "postalCode": "48100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 223,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    23.117,
+                    60.3767
+                ]
+            },
+            "properties": {
+                "id": "mock-21",
+                "name": "P-Torikahvi Salo",
+                "streetAddress": "Parkkikatu 21",
+                "postalCode": "24100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 260,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    27.2683,
+                    61.6845
+                ]
+            },
+            "properties": {
+                "id": "mock-22",
+                "name": "P-Nokipannu Mikkeli",
+                "streetAddress": "Parkkikatu 22",
+                "postalCode": "50100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 297,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    27.7278,
+                    64.2273
+                ]
+            },
+            "properties": {
+                "id": "mock-23",
+                "name": "P-Jäätelöauto Kajaani",
+                "streetAddress": "Parkkikatu 23",
+                "postalCode": "87100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 74,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    28.883300000000002,
+                    61.8739
+                ]
+            },
+            "properties": {
+                "id": "mock-24",
+                "name": "P-Pulkkamäki Savonlinna",
+                "streetAddress": "Parkkikatu 24",
+                "postalCode": "57100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 111,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    24.5717,
+                    65.7444
+                ]
+            },
+            "properties": {
+                "id": "mock-25",
+                "name": "P-Sienikori Kemi",
+                "streetAddress": "Parkkikatu 25",
+                "postalCode": "94100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 148,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    21.5033,
+                    61.1192
+                ]
+            },
+            "properties": {
+                "id": "mock-26",
+                "name": "P-Tähtisumu Rauma",
+                "streetAddress": "Parkkikatu 26",
+                "postalCode": "26100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 185,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    24.9344,
+                    60.1659
+                ]
+            },
+            "properties": {
+                "id": "mock-27",
+                "name": "P-Koirapuisto Helsinki",
+                "streetAddress": "Parkkikatu 27",
+                "postalCode": "00100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 222,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    24.6559,
+                    60.2055
+                ]
+            },
+            "properties": {
+                "id": "mock-28",
+                "name": "P-Voileipä Espoo",
+                "streetAddress": "Parkkikatu 28",
+                "postalCode": "02100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 259,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    25.213700000000003,
+                    60.297399999999996
+                ]
+            },
+            "properties": {
+                "id": "mock-29",
+                "name": "P-Karpalomehu Vantaa",
+                "streetAddress": "Parkkikatu 29",
+                "postalCode": "01300",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 296,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    23.769,
+                    61.5058
+                ]
+            },
+            "properties": {
+                "id": "mock-30",
+                "name": "P-Kiiltomato Tampere",
+                "streetAddress": "Parkkikatu 30",
+                "postalCode": "33100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 73,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    22.2586,
+                    60.443799999999996
+                ]
+            },
+            "properties": {
+                "id": "mock-31",
+                "name": "P-Joutsenlaulu Turku",
+                "streetAddress": "Parkkikatu 31",
+                "postalCode": "20100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 110,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    25.743299999999998,
+                    62.238600000000005
+                ]
+            },
+            "properties": {
+                "id": "mock-32",
+                "name": "P-Mustikkapiirakka Jyväskylä",
+                "streetAddress": "Parkkikatu 32",
+                "postalCode": "40100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 147,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    25.4651,
+                    65.0121
+                ]
+            },
+            "properties": {
+                "id": "mock-33",
+                "name": "P-Puukenkä Oulu",
+                "streetAddress": "Parkkikatu 33",
+                "postalCode": "90100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 184,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    25.665200000000002,
+                    60.9867
+                ]
+            },
+            "properties": {
+                "id": "mock-34",
+                "name": "P-Kissankello Lahti",
+                "streetAddress": "Parkkikatu 34",
+                "postalCode": "15110",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 221,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    27.6862,
+                    62.9005
+                ]
+            },
+            "properties": {
+                "id": "mock-35",
+                "name": "P-Hattara Kuopio",
+                "streetAddress": "Parkkikatu 35",
+                "postalCode": "70100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 258,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    21.7892,
+                    61.4771
+                ]
+            },
+            "properties": {
+                "id": "mock-36",
+                "name": "P-Sateenvarjo Pori",
+                "streetAddress": "Parkkikatu 36",
+                "postalCode": "28100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 295,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    26.7002,
+                    60.8641
+                ]
+            },
+            "properties": {
+                "id": "mock-37",
+                "name": "P-Kupla Kouvola",
+                "streetAddress": "Parkkikatu 37",
+                "postalCode": "45100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 72,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    29.7636,
+                    62.601
+                ]
+            },
+            "properties": {
+                "id": "mock-38",
+                "name": "P-Korvapuusti Joensuu",
+                "streetAddress": "Parkkikatu 38",
+                "postalCode": "80100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 109,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    21.6198,
+                    63.0991
+                ]
+            },
+            "properties": {
+                "id": "mock-39",
+                "name": "P-Possujuna Vaasa",
+                "streetAddress": "Parkkikatu 39",
+                "postalCode": "65100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 146,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    25.737399999999997,
+                    66.5105
+                ]
+            },
+            "properties": {
+                "id": "mock-40",
+                "name": "P-Pakkaspilvi Rovaniemi",
+                "streetAddress": "Parkkikatu 40",
+                "postalCode": "96100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 183,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    22.8339,
+                    62.7855
+                ]
+            },
+            "properties": {
+                "id": "mock-41",
+                "name": "P-Lumipallo Seinäjoki",
+                "streetAddress": "Parkkikatu 41",
+                "postalCode": "60100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 220,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    28.1847,
+                    61.054700000000004
+                ]
+            },
+            "properties": {
+                "id": "mock-42",
+                "name": "P-Retkieväs Lappeenranta",
+                "streetAddress": "Parkkikatu 42",
+                "postalCode": "53100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 257,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    24.4649,
+                    60.993
+                ]
+            },
+            "properties": {
+                "id": "mock-43",
+                "name": "P-Kalastaja Hämeenlinna",
+                "streetAddress": "Parkkikatu 43",
+                "postalCode": "13100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 294,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    25.6691,
+                    60.396699999999996
+                ]
+            },
+            "properties": {
+                "id": "mock-44",
+                "name": "P-Aamukaste Porvoo",
+                "streetAddress": "Parkkikatu 44",
+                "postalCode": "06100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 71,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    23.1387,
+                    63.846500000000006
+                ]
+            },
+            "properties": {
+                "id": "mock-45",
+                "name": "P-Polkagris Kokkola",
+                "streetAddress": "Parkkikatu 45",
+                "postalCode": "67100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 108,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    26.9378,
+                    60.4584
+                ]
+            },
+            "properties": {
+                "id": "mock-46",
+                "name": "P-Sumutorvi Kotka",
+                "streetAddress": "Parkkikatu 46",
+                "postalCode": "48100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 145,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    23.121,
+                    60.380700000000004
+                ]
+            },
+            "properties": {
+                "id": "mock-47",
+                "name": "P-Metsämansikka Salo",
+                "streetAddress": "Parkkikatu 47",
+                "postalCode": "24100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 182,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    27.2723,
+                    61.6885
+                ]
+            },
+            "properties": {
+                "id": "mock-48",
+                "name": "P-Hyvä Tuuli Mikkeli",
+                "streetAddress": "Parkkikatu 48",
+                "postalCode": "50100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 219,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    27.7318,
+                    64.2313
+                ]
+            },
+            "properties": {
+                "id": "mock-49",
+                "name": "P-Peukalopotti Kajaani",
+                "streetAddress": "Parkkikatu 49",
+                "postalCode": "87100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 256,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    28.8873,
+                    61.877900000000004
+                ]
+            },
+            "properties": {
+                "id": "mock-50",
+                "name": "P-Riemurasia Savonlinna",
+                "streetAddress": "Parkkikatu 50",
+                "postalCode": "57100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 293,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    24.5557,
+                    65.72840000000001
+                ]
+            },
+            "properties": {
+                "id": "mock-51",
+                "name": "P-Tuuliviiri Kemi",
+                "streetAddress": "Parkkikatu 51",
+                "postalCode": "94100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 70,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    21.507299999999997,
+                    61.123200000000004
+                ]
+            },
+            "properties": {
+                "id": "mock-52",
+                "name": "P-Seppele Rauma",
+                "streetAddress": "Parkkikatu 52",
+                "postalCode": "26100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 107,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    24.9384,
+                    60.1699
+                ]
+            },
+            "properties": {
+                "id": "mock-53",
+                "name": "P-Hymyilevä Silta Helsinki",
+                "streetAddress": "Parkkikatu 53",
+                "postalCode": "00100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 144,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    24.6599,
+                    60.2095
+                ]
+            },
+            "properties": {
+                "id": "mock-54",
+                "name": "P-Tutiseva Tatti Espoo",
+                "streetAddress": "Parkkikatu 54",
+                "postalCode": "02100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 181,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    25.2177,
+                    60.3014
+                ]
+            },
+            "properties": {
+                "id": "mock-55",
+                "name": "P-Keinuhevonen Vantaa",
+                "streetAddress": "Parkkikatu 55",
+                "postalCode": "01300",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 218,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    23.753,
+                    61.489799999999995
+                ]
+            },
+            "properties": {
+                "id": "mock-56",
+                "name": "P-Herkkukori Tampere",
+                "streetAddress": "Parkkikatu 56",
+                "postalCode": "33100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 255,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    22.2626,
+                    60.4478
+                ]
+            },
+            "properties": {
+                "id": "mock-57",
+                "name": "P-Kultainen Kettu Turku",
+                "streetAddress": "Parkkikatu 57",
+                "postalCode": "20100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 292,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    25.7473,
+                    62.2426
+                ]
+            },
+            "properties": {
+                "id": "mock-58",
+                "name": "P-Vihreä Vihko Jyväskylä",
+                "streetAddress": "Parkkikatu 58",
+                "postalCode": "40100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 69,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    25.4691,
+                    65.01610000000001
+                ]
+            },
+            "properties": {
+                "id": "mock-59",
+                "name": "P-Paistinpannu Oulu",
+                "streetAddress": "Parkkikatu 59",
+                "postalCode": "90100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 106,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    25.6692,
+                    60.990700000000004
+                ]
+            },
+            "properties": {
+                "id": "mock-60",
+                "name": "P-Lentosukka Lahti",
+                "streetAddress": "Parkkikatu 60",
+                "postalCode": "15110",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 143,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    27.6702,
+                    62.884499999999996
+                ]
+            },
+            "properties": {
+                "id": "mock-61",
+                "name": "P-Suolakurkkutori Kuopio",
+                "streetAddress": "Parkkikatu 61",
+                "postalCode": "70100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 180,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    21.7932,
+                    61.481100000000005
+                ]
+            },
+            "properties": {
+                "id": "mock-62",
+                "name": "P-Hömppä Pori",
+                "streetAddress": "Parkkikatu 62",
+                "postalCode": "28100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 217,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    26.7042,
+                    60.8681
+                ]
+            },
+            "properties": {
+                "id": "mock-63",
+                "name": "P-Kaakao Kouvola",
+                "streetAddress": "Parkkikatu 63",
+                "postalCode": "45100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 254,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    29.7676,
+                    62.605
+                ]
+            },
+            "properties": {
+                "id": "mock-64",
+                "name": "P-Talitiainen Joensuu",
+                "streetAddress": "Parkkikatu 64",
+                "postalCode": "80100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 291,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    21.6238,
+                    63.103100000000005
+                ]
+            },
+            "properties": {
+                "id": "mock-65",
+                "name": "P-Kurkipotku Vaasa",
+                "streetAddress": "Parkkikatu 65",
+                "postalCode": "65100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 68,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    25.7214,
+                    66.4945
+                ]
+            },
+            "properties": {
+                "id": "mock-66",
+                "name": "P-Piparkakku Rovaniemi",
+                "streetAddress": "Parkkikatu 66",
+                "postalCode": "96100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 105,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    22.837899999999998,
+                    62.789500000000004
+                ]
+            },
+            "properties": {
+                "id": "mock-67",
+                "name": "P-Pörröpallo Seinäjoki",
+                "streetAddress": "Parkkikatu 67",
+                "postalCode": "60100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 142,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    28.1887,
+                    61.0587
+                ]
+            },
+            "properties": {
+                "id": "mock-68",
+                "name": "P-Koukkunokka Lappeenranta",
+                "streetAddress": "Parkkikatu 68",
+                "postalCode": "53100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 179,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    24.4689,
+                    60.997
+                ]
+            },
+            "properties": {
+                "id": "mock-69",
+                "name": "P-Majakkamuffini Hämeenlinna",
+                "streetAddress": "Parkkikatu 69",
+                "postalCode": "13100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 216,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    25.673099999999998,
+                    60.4007
+                ]
+            },
+            "properties": {
+                "id": "mock-70",
+                "name": "P-Koirankynsi Porvoo",
+                "streetAddress": "Parkkikatu 70",
+                "postalCode": "06100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 253,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    23.122700000000002,
+                    63.8305
+                ]
+            },
+            "properties": {
+                "id": "mock-71",
+                "name": "P-Hyrrä Kokkola",
+                "streetAddress": "Parkkikatu 71",
+                "postalCode": "67100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 290,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    26.941799999999997,
+                    60.4624
+                ]
+            },
+            "properties": {
+                "id": "mock-72",
+                "name": "P-Humppa Kotka",
+                "streetAddress": "Parkkikatu 72",
+                "postalCode": "48100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 67,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    23.125,
+                    60.3847
+                ]
+            },
+            "properties": {
+                "id": "mock-73",
+                "name": "P-Metsäretki Salo",
+                "streetAddress": "Parkkikatu 73",
+                "postalCode": "24100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 104,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    27.276300000000003,
+                    61.692499999999995
+                ]
+            },
+            "properties": {
+                "id": "mock-74",
+                "name": "P-Suopursu Mikkeli",
+                "streetAddress": "Parkkikatu 74",
+                "postalCode": "50100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 141,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    27.735799999999998,
+                    64.2353
+                ]
+            },
+            "properties": {
+                "id": "mock-75",
+                "name": "P-Hymykuoppa Kajaani",
+                "streetAddress": "Parkkikatu 75",
+                "postalCode": "87100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 178,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    28.8713,
+                    61.8619
+                ]
+            },
+            "properties": {
+                "id": "mock-76",
+                "name": "P-Kaarnalaiva Savonlinna",
+                "streetAddress": "Parkkikatu 76",
+                "postalCode": "57100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 215,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    24.5597,
+                    65.7324
+                ]
+            },
+            "properties": {
+                "id": "mock-77",
+                "name": "P-Paistopiste Kemi",
+                "streetAddress": "Parkkikatu 77",
+                "postalCode": "94100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 252,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    21.5113,
+                    61.1272
+                ]
+            },
+            "properties": {
+                "id": "mock-78",
+                "name": "P-Perhonen Rauma",
+                "streetAddress": "Parkkikatu 78",
+                "postalCode": "26100",
+                "operatorName": "Parkitin Mock Oy",
+                "maxCapacity": 289,
+                "pricingMethod": "DISC",
+                "usagePurpose": "PARK_AND_RIDE"
+            }
+        }
+    ]
+}

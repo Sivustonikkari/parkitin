@@ -1,0 +1,98 @@
+{
+    "locale": "fi-FI",
+    "name": "Suomi",
+    "default": true,
+    "translations": {
+        "login": {
+            "emailPlaceholder": "Sähköpostiosoite",
+            "submit": "Kirjaudu",
+            "logout": "Poistu"
+        },
+        "register": {
+            "info": "Vaikutat olevan uusi Parkitin-palvelussa? Haluatko, että luomme sinulle tilin?<br><br>Kun klikkaat \"Luo tili\", saat kirjautumislinkin sähköpostiisi.<br><br>Näin Parkitin-kirjautuminen toimii – ei salasanoja, ei tuskaa, pelkkää sujuvaa pysäköintiä!",
+            "submit": "Luo tili"
+        },
+        "details": {
+            "regNumberPlaceholder": "Rekisterinumero",
+            "firstNamePlaceholder": "Etunimi",
+            "lastNamePlaceholder": "Sukunimi",
+            "postalCodePlaceholder": "Postinumero",
+            "cityPlaceholder": "Postitoimipaikka",
+            "submit": "Tallenna"
+        },
+        "messages": {
+            "checkEmail": "Kirjautumislinkki lähetetty sähköpostiisi.",
+            "accountCreated": "Tili luotu. Kirjautumislinkki on lähetetty sähköpostiisi."
+        },
+        "welcome": {
+            "greeting": "Tervetuloa, {email}"
+        },
+        "profile": {
+            "open": "Profiili",
+            "emailInfo": "Jos haluat vaihtaa sähköpostiosoitteesi, ota yhteyttä Parkitiniin",
+            "delete": "Poista profiilini"
+        },
+        "payments": {
+            "title": "Maksut",
+            "open": "Avoimet maksut",
+            "history": "Historia",
+            "lot": "Pysäköintialue",
+            "time": "Aika",
+            "cost": "Hinta",
+            "mockMethod": "Mallimaksutapa",
+            "totalDue": "Maksettavaa yhteensä: {total} EUR",
+            "totalPaid": "Maksettu yhteensä: {total} EUR",
+            "success": "Maksu onnistui!",
+            "noOpen": "Ei avoimia maksuja",
+            "noHistory": "Ei maksuhistoriaa"
+        },
+        "map": {
+            "title": "Pysäköintialueet",
+            "center": "Oma sijainti",
+            "findParking": "Etsi pysäköintiä"
+        },
+        "parking": {
+            "pricing": "Ensimmäiset 3 h: {first} EUR / alkava minuutti. Sen jälkeen: {extra} EUR / alkava minuutti.",
+            "availability": "Paikat: yhteensä {total}, vapaana {available}",
+            "start": "Aloita pysäköinti",
+            "slot": "Paikka",
+            "assigned": "Pysäköintipaikkasi: {slot}",
+            "parked": "Olen pysäköinyt",
+            "cancel": "Peruuta",
+            "stop": "Lopeta pysäköinti",
+            "active": "Pysäköinti alueella {lot} kestänyt {time}. Nykyinen hinta: {price}",
+            "finished": "Pysäköintiaika: {time}\nKokonaishinta: {price} EUR\n\nSinulla on avoin lasku. Maksuaikaa on 7 päivää."
+        },
+        "admin": {
+            "openPanel": "Hallinta",
+            "title": "Hallintapaneeli",
+            "back": "Takaisin",
+            "lotsHeading": "Pysäköintialueet",
+            "usersHeading": "Käyttäjät",
+            "lotName": "Nimi",
+            "lotAddress": "Osoite",
+            "lotCity": "Kaupunki",
+            "lotPostalCode": "Postinumero",
+            "lotInfo": "Lisätiedot",
+            "lotCapacity": "Paikkojen määrä",
+            "lotPriceFirst3h": "Hinta / alkava minuutti, ensimmäiset 3 h",
+            "lotPriceExtraHour": "Hinta / alkava minuutti, 3 h jälkeen",
+            "slotsSuffix": "paikkaa",
+            "parkingSlots": "Pysäköintipaikat",
+            "autoAddSlots": "Lisää automaattisesti",
+            "addSlots": "paikkaa",
+            "slot": "Paikka",
+            "slotName": "Valinnainen nimi",
+            "slotActive": "Aktiivinen",
+            "roleOwner": "Omistaja",
+            "roleAdmin": "Ylläpitäjä",
+            "roleCustomer": "Asiakas",
+            "statusConfirmed": "Vahvistettu",
+            "statusPending": "Odottaa vahvistusta",
+            "add": "Lisää",
+            "save": "Tallenna",
+            "edit": "Muokkaa",
+            "delete": "Poista"
+        }
+    }
+}

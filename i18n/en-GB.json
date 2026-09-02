@@ -1,0 +1,98 @@
+{
+    "locale": "en-GB",
+    "name": "English",
+    "default": false,
+    "translations": {
+        "login": {
+            "emailPlaceholder": "Email address",
+            "submit": "Log in",
+            "logout": "Log out"
+        },
+        "register": {
+            "info": "You seem to be new to Parkitin? Would you like us to create an account for you?<br><br>When you click on \"Create account, you will be sent a login link.<br><br>This is how Parkitin login works, no passwords, no hassle, just smooth parking!",
+            "submit": "Create account"
+        },
+        "details": {
+            "regNumberPlaceholder": "Vehicle registration number",
+            "firstNamePlaceholder": "First name",
+            "lastNamePlaceholder": "Last name",
+            "postalCodePlaceholder": "Postal code",
+            "cityPlaceholder": "Post office",
+            "submit": "Save"
+        },
+        "messages": {
+            "checkEmail": "Check your email for a login link.",
+            "accountCreated": "Account created. Check your email to confirm."
+        },
+        "welcome": {
+            "greeting": "Welcome, {email}"
+        },
+        "profile": {
+            "open": "Profile",
+            "emailInfo": "To change your email, please contact Parkitin",
+            "delete": "Delete my profile"
+        },
+        "payments": {
+            "title": "Payments",
+            "open": "Open payments",
+            "history": "History",
+            "lot": "Parking lot",
+            "time": "Time",
+            "cost": "Cost",
+            "mockMethod": "Mock up payment method",
+            "totalDue": "Total due: {total} EUR",
+            "totalPaid": "Total paid: {total} EUR",
+            "success": "Payment succeeded!",
+            "noOpen": "No open payments",
+            "noHistory": "No payment history"
+        },
+        "map": {
+            "title": "Parking lots",
+            "center": "My location",
+            "findParking": "Find parking"
+        },
+        "parking": {
+            "pricing": "First 3h: {first} EUR per started minute. After: {extra} EUR per started minute.",
+            "availability": "Slots: {total} total, {available} available",
+            "start": "Start parking",
+            "slot": "Slot",
+            "assigned": "Your parking slot: {slot}",
+            "parked": "I have parked",
+            "cancel": "Cancel",
+            "stop": "Stop parking",
+            "active": "Parking at {lot} for {time}. Current price: {price}",
+            "finished": "Parking time: {time}\nTotal cost: {price} EUR\n\nYou have an open bill. You have 7 days to pay it."
+        },
+        "admin": {
+            "openPanel": "Open admin panel",
+            "title": "Admin panel",
+            "back": "Back",
+            "lotsHeading": "Parking lots",
+            "usersHeading": "Users",
+            "lotName": "Name",
+            "lotAddress": "Address",
+            "lotCity": "City",
+            "lotPostalCode": "Postal code",
+            "lotInfo": "Info",
+            "lotCapacity": "Capacity",
+            "lotPriceFirst3h": "Price per started minute, first 3h",
+            "lotPriceExtraHour": "Price per started minute, after 3h",
+            "slotsSuffix": "slots",
+            "parkingSlots": "Parking slots",
+            "autoAddSlots": "Automatically add",
+            "addSlots": "slots",
+            "slot": "Slot",
+            "slotName": "Optional name",
+            "slotActive": "Active",
+            "roleOwner": "Owner",
+            "roleAdmin": "Admin",
+            "roleCustomer": "Customer",
+            "statusConfirmed": "Confirmed",
+            "statusPending": "Pending",
+            "add": "Add",
+            "save": "Save",
+            "edit": "Edit",
+            "delete": "Delete"
+        }
+    }
+}
