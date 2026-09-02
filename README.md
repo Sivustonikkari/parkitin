@@ -106,6 +106,17 @@ APIn osoite on `/api/`. Endpoint query-parametrilla: `/parkitin/api/index.php?re
 
 JSON POST- ja PUT-pyynnöt lähetetään `Content-Type: application/json` -otsakkeella.
 
+## Kamera-API
+
+Kameraintegraatio sijaitsee osoitteessa `/camera/`. Sen tarkoitus on simuloida rekisterikilven lukijaa, joka käynnistää tai päättää pysäköinnin ilman käyttäjän selainkäyttöliittymää. Toiminnot käyttävät samaa `parking_sessions`-taulua sekä samoja paikan lukitus- ja hintalaskentasääntöjä kuin käyttöliittymän manuaalinen pysäköinti.
+
+Rajapinnan pyynnöt tehdään osoitteeseen `/api/index.php` JSON-muodossa. Kameralla on oltava `X-Api-Key`-otsake. Rekisterinumero validoidaan muodossa `1–3` kirjainta, väliviiva ja `1–3` numeroa, esimerkiksi `ABC-123`.
+
+- `POST resource=camera_start`: vastaanottaa `plate`- ja `lot_id`-kentät. Onnistunut vastaus sisältää käyttäjän tiedot, varatun paikan sekä pysäköinnin aloitusajan. Virhetilanteet ovat tuntematon rekisterinumero, jo käynnissä oleva pysäköinti, tuntematon alue tai täysi alue.
+- `POST resource=camera_stop`: vastaanottaa vain `plate`-kentän. Onnistunut vastaus sisältää käyttäjän tiedot, pysäköinnin keston ja loppuhinnan. Virhetilanteet ovat tuntematon rekisterinumero tai puuttuva aktiivinen pysäköinti.
+- `GET resource=camera_lots&q=...`: hakee pysäköintialueita nimen, kaupungin, osoitteen tai tunnisteen perusteella. Simulaattori käyttää tätä autocomplete-hakuun.
+
+`camera/index.php` on erillinen PHP-näkymä kameran testaamiseen. Siinä rekisterikilven kirjain- ja numero-osa syötetään erikseen. Aloitusta varten alue haetaan autocomplete-kentästä; lopetus tarvitsee vain rekisterinumeron. Molemmat toiminnot näyttävät vastauksen käyttäjäystävällisenä onnistumis- tai virheilmoituksena.
 ### Kirjautuminen ja käyttäjätili
 
 - `POST resource=login_request`: vastaanottaa sähköpostin. Olemassa olevalle käyttäjälle lähetetään kirjautumislinkki. Uudelle sähköpostille palautetaan `needs_registration`.
