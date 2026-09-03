@@ -65,7 +65,8 @@ interface LocalStore {
     nextSessionId: number;
 }
 
-const STORE_KEY = 'parkitin_local_store_sql_v1';
+export const LOCAL_STORE_KEY = 'parkitin_local_store_sql_v1';
+const STORE_KEY = LOCAL_STORE_KEY;
 const SQL_SEED_URL = 'assets/dbttx_parkitin.sql';
 const ORIGINAL_FETCH = Symbol('parkitin-original-fetch');
 
