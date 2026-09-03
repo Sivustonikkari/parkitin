@@ -428,6 +428,70 @@ body {
     font-weight: 700;
 }
 
+.camera-title {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.camera-view {
+    align-items: stretch;
+    gap: 1.5rem;
+}
+
+.camera-form h2 {
+    margin: 0;
+    font-size: 1.15rem;
+}
+
+.camera-plate {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.camera-plate-letters,
+.camera-plate-numbers {
+    width: 5rem;
+    text-transform: uppercase;
+}
+
+.camera-plate-separator {
+    font-weight: 700;
+}
+
+.camera-result {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 1rem;
+    border-radius: 4px;
+}
+
+.camera-result h2 {
+    margin: 0 0 0.75rem;
+    font-size: 1.15rem;
+}
+
+.camera-result p {
+    margin: 0.25rem 0;
+}
+
+.camera-result-success {
+    color: #0b3d17;
+    background: #e6f4ea;
+    border: 1px solid #137333;
+}
+
+.camera-result-error {
+    color: #7a1c14;
+    background: #fce8e6;
+    border: 1px solid #b42318;
+}
+
+.camera-candidates {
+    margin: 0;
+    padding-left: 1.25rem;
+}
+
 .payment-success-toast {
     position: fixed;
     inset: 0;
@@ -638,6 +702,18 @@ body {
 
     .map-loading {
         height: 420px;
+    }
+
+    .map-center-button {
+        position: fixed;
+        right: 1rem;
+        bottom: calc(0.75rem + env(safe-area-inset-bottom));
+    }
+
+    .map-zoom-controls {
+        position: fixed;
+        right: 1rem;
+        bottom: calc(4rem + env(safe-area-inset-bottom));
     }
 
     .user-nav {

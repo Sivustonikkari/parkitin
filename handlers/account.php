@@ -344,7 +344,9 @@ function handle_parking_status(string $method): void
     if (!$parking) send_json(['parking' => null]);
     $parking['id'] = $activeParking['session_id'] ?? null;
     $parking['start_time'] = $activeParking['start_time'];
-    $seconds = time() - (new DateTime($activeParking['start_time']))->getTimestamp();
+    $durationStmt = get_db()->prepare('SELECT TIMESTAMPDIFF(SECOND, ?, NOW())');
+    $durationStmt->execute([$activeParking['start_time']]);
+    $seconds = max(0, (int)$durationStmt->fetchColumn());
     $parking['price'] = calculate_price($parking, $seconds);
     send_json(['parking' => $parking]);
 }
@@ -386,6 +388,28 @@ function handle_parking_stop(string $method): void
         'slot' => $slot,
         'duration_minutes' => (int)round($seconds / 60),
     ]);
+}
+
+function handle_parking_receipt(string $method): void
+{
+    if ($method !== 'GET') send_json(['error' => 'Method not allowed'], 405);
+    $session = require_account_session();
+    $parkingId = (int)($_GET['parking_id'] ?? 0);
+    if ($parkingId <= 0) send_json(['error' => 'parking_id is required'], 400);
+
+    $stmt = get_db()->prepare(
+        'SELECT s.id, s.start_time, s.end_time, s.price_charged
+         FROM parking_sessions s
+         WHERE s.id = ? AND s.user_id = ? AND s.end_time IS NOT NULL'
+    );
+    $stmt->execute([$parkingId, $session['user_id']]);
+    $receipt = $stmt->fetch();
+    if (!$receipt) send_json(['error' => 'Parking receipt not found'], 404);
+
+    $durationStmt = get_db()->prepare('SELECT TIMESTAMPDIFF(SECOND, ?, ?)');
+    $durationStmt->execute([$receipt['start_time'], $receipt['end_time']]);
+    $receipt['duration_minutes'] = (int)round(max(0, (int)$durationStmt->fetchColumn()) / 60);
+    send_json($receipt);
 }
 
 function handle_payments(string $method): void

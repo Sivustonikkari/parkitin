@@ -8,6 +8,7 @@ require_once __DIR__ . '/../handlers/slots.php';
 require_once __DIR__ . '/../handlers/users.php';
 require_once __DIR__ . '/../handlers/sessions.php';
 require_once __DIR__ . '/../handlers/account.php';
+require_once __DIR__ . '/../handlers/camera.php';
 
 set_exception_handler(function (Throwable $e) {
     error_log($e->getMessage());
@@ -18,7 +19,7 @@ $resource = $_GET['resource'] ?? '';
 $method = $_SERVER['REQUEST_METHOD'];
 
 // account endpoints have their own session-token auth, not the driver-API key
-$accountResources = ['login_request', 'register', 'verify', 'me', 'update_profile', 'delete_profile', 'map_lots', 'parking_start', 'parking_cancel', 'parking_stop', 'parking_status', 'payments', 'payments_pay'];
+$accountResources = ['login_request', 'register', 'verify', 'me', 'update_profile', 'delete_profile', 'map_lots', 'parking_start', 'parking_cancel', 'parking_stop', 'parking_status', 'parking_receipt', 'payments', 'payments_pay'];
 // admin resources also accept an owner/admin session, for the in-browser admin panel
 $dualAuthResources = ['lots', 'slots', 'users'];
 
@@ -46,6 +47,15 @@ switch ($resource) {
         break;
     case 'sessions_end':
         handle_session_end($method);
+        break;
+    case 'camera_start':
+        handle_camera_start($method);
+        break;
+    case 'camera_stop':
+        handle_camera_stop($method);
+        break;
+    case 'camera_lots':
+        handle_camera_lots($method);
         break;
     case 'login_request':
         handle_login_request($method);
@@ -79,6 +89,9 @@ switch ($resource) {
         break;
     case 'parking_status':
         handle_parking_status($method);
+        break;
+    case 'parking_receipt':
+        handle_parking_receipt($method);
         break;
     case 'payments':
         handle_payments($method);

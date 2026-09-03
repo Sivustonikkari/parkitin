@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "target": "ES2019",
+        "module": "CommonJS",
+        "moduleResolution": "Node",
+        "outDir": "build/server",
+        "rootDir": "src/server",
+        "strict": true,
+        "noEmitOnError": true,
+        "esModuleInterop": true,
+        "types": ["node"]
+    },
+    "include": ["src/server/**/*.ts"]
+}

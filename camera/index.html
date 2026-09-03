@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Parkitin - kameravalvonta</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <header class="user-nav"><span class="camera-title">Kameravalvonnan simulaatio</span></header>
+    <main class="app camera-view">
+        <form class="auth-form camera-form" id="camera-start-form">
+            <h2>Aloita pysäköinti</h2>
+            <label class="lot-field"><span>Rekisterinumero</span><input class="text-input" name="plate" required pattern="[A-Za-zÅÄÖåäö]{1,3}-[0-9]{1,3}"></label>
+            <label class="lot-field"><span>Pysäköintialueen tunniste</span><input class="text-input" name="lot_id" type="number" min="1" required></label>
+            <button class="submit-button" type="submit">Aloita pysäköinti</button>
+        </form>
+        <form class="auth-form camera-form" id="camera-stop-form">
+            <h2>Lopeta pysäköinti</h2>
+            <label class="lot-field"><span>Rekisterinumero</span><input class="text-input" name="plate" required pattern="[A-Za-zÅÄÖåäö]{1,3}-[0-9]{1,3}"></label>
+            <button class="submit-button" type="submit">Lopeta pysäköinti</button>
+        </form>
+        <p id="camera-result" class="camera-result" role="status"></p>
+    </main>
+    <script>
+        const apiKey = window.localStorage.getItem('parkitin_device_api_key') || '';
+        const result = document.getElementById('camera-result');
+        async function submit(form, resource) {
+            const data = Object.fromEntries(new FormData(form));
+            const response = await fetch('../api/index.php?resource=' + resource, { method: 'POST', headers: {'Content-Type': 'application/json', 'X-Api-Key': apiKey}, body: JSON.stringify(data) });
+            const body = await response.json();
+            result.textContent = response.ok ? JSON.stringify(body) : (body.error || 'Virhe');
+        }
+        document.getElementById('camera-start-form').addEventListener('submit', (event) => { event.preventDefault(); submit(event.currentTarget, 'camera_start'); });
+        document.getElementById('camera-stop-form').addEventListener('submit', (event) => { event.preventDefault(); submit(event.currentTarget, 'camera_stop'); });
+    </script>
+</body>
+</html>

@@ -1,7 +1,3 @@
--- Parkitin database schema
--- Run this against dbttx_parkitin
--- Kaikkien pysäköinti-, käyttäjä-, istunto- ja maksutaulujen rakenne.
-
 CREATE TABLE IF NOT EXISTS parking_lots (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     name VARCHAR(150) NOT NULL,

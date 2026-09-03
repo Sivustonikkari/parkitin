@@ -60,6 +60,7 @@
             "parked": "Olen pysäköinyt",
             "cancel": "Peruuta",
             "stop": "Lopeta pysäköinti",
+            "cameraStopped": "Pysäköinti on jo lopetettu kameralla",
             "active": "Pysäköinti alueella {lot} kestänyt {time}. Nykyinen hinta: {price}",
             "finished": "Pysäköintiaika: {time}\nKokonaishinta: {price} EUR\n\nSinulla on avoin lasku. Maksuaikaa on 7 päivää."
         },

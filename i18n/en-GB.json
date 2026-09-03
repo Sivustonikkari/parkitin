@@ -60,6 +60,7 @@
             "parked": "I have parked",
             "cancel": "Cancel",
             "stop": "Stop parking",
+            "cameraStopped": "Parking already stopped by camera",
             "active": "Parking at {lot} for {time}. Current price: {price}",
             "finished": "Parking time: {time}\nTotal cost: {price} EUR\n\nYou have an open bill. You have 7 days to pay it."
         },
