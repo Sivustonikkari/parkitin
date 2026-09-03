@@ -44,6 +44,7 @@ export function renderLoginForm(app: HTMLElement, actions: LoginActions): void {
             actions.showRegister(email);
             return;
         }
+        if (data.login_link) localStorage.setItem('parkitin_last_login_link', data.login_link);
         actions.showMessage('messages.checkEmail');
     });
 }

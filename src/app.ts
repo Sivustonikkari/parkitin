@@ -1,4 +1,5 @@
 import { API_BASE, clearSessionToken, getSessionToken, setSessionToken } from './api/client';
+import { installLocalApi } from './api/local-api';
 import { initI18n } from './i18n/i18n';
 import type { NavView, ProfileData } from './interfaces/models';
 import { getCurrentScreen, setCurrentScreen } from './state/screen';
@@ -10,6 +11,7 @@ import { renderLogo, renderMessage as sharedMessage, renderUserNav } from './vie
 import { renderCustomerMap } from './views/map/customer-map';
 
 const app = document.getElementById('app') as HTMLElement;
+installLocalApi();
 const showMessage = (key: string): void => { setCurrentScreen({ name: 'message', key }); sharedMessage(app, key); };
 const showLogin = (): void => renderLoginForm(app, { showRegister, showMessage });
 const showRegister = (email: string): void => renderRegisterForm(app, email, { showLogin, showMessage });

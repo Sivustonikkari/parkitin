@@ -10,6 +10,8 @@ const contentTypes: Record<string, string> = {
 export async function serveStatic(pathname: string, response: ServerResponse): Promise<boolean> {
     const requestedPath = pathname === '/'
         ? 'index.html'
+        : pathname === '/camera'
+            ? 'camera/index.html'
         : pathname.endsWith('/')
             ? `${pathname.replace(/^\/+|\/$/g, '')}/index.html`
             : pathname.replace(/^\/+/, '');

@@ -8,6 +8,82 @@ Lokalisointiin käytetään custom-funktiota (trans), joka käyttää .json-tied
 
 Palvelu sijaitsee testipalvelimella osoitteessa: `https://testinikkari.fi/parkitin/`
 
+## Paikallinen demotila
+
+Selainkäyttöliittymää voi käyttää ilman Node-palvelinta, MySQL-tietokantaa tai sähköpostipalvelua. `src/api/local-api.ts` lukee ensimmäisellä käyttökerralla nykyisen tietokannan SQL-viennin tiedostosta `assets/dbttx_parkitin.sql`, korvaa API-kutsut selaimessa ja tallentaa tuodun aineiston `localStorage`-tallennukseen. Käyttäjät, pysäköinnit, maksut ja alueet säilyvät selaimen paikallisessa tallennuksessa.
+
+Sivu tarvitsee vain staattisen tiedostopalvelun, esimerkiksi VS Coden Live Server -laajennuksen. Avaa projektin juurikansio Live Serverillä ja siirry osoitteeseen `http://127.0.0.1:5500/` tai laajennuksen näyttämään osoitteeseen.
+
+### Build ja Node-palvelin
+
+Asenna Node.js ja Corepack tai Yarn. Komennot toimivat tavallisessa komentotulkissa Windowsissa, macOS:ssa ja Linuxissa:
+
+```sh
+corepack enable
+corepack yarn install
+corepack yarn build
+corepack yarn build-server
+```
+
+Käynnistä Node-palvelin paikallista selaintestiä varten. Paikallisessa demotilassa tietokanta- ja SMTP-arvot ovat vain käynnistyksen vaatimia paikkamerkkejä, koska selain käyttää `localStorage`-tallennusta ja paikallista API-simulaattoria. POSIX-yhteensopivassa komentotulkissa:
+
+```sh
+export HOST='127.0.0.1'
+export PORT='3020'
+export APP_URL='http://127.0.0.1:3020'
+export DB_HOST='127.0.0.1'
+export DB_NAME='local-demo'
+export DB_USER='local-demo'
+export DB_PASS=''
+export DB_CHARSET='utf8mb4'
+export DEV_API_KEY='local-demo'
+export SMTP_HOST='127.0.0.1'
+export SMTP_PORT='2525'
+export SMTP_USER='local-demo'
+export SMTP_PASSWORD='local-demo'
+export SMTP_FROM='local-demo@example.com'
+corepack yarn start
+```
+
+PowerShellissä käytä `$env:NAME = 'value'` -muotoa. POSIX-komentotulkissa käytä yllä olevaa `export NAME='value'` -muotoa.
+
+Avaa `http://localhost:3020/`. Kamerasimulaattori on osoitteessa `http://localhost:3020/camera/`. Pysäytä palvelin painamalla `Ctrl+C`. Vaihtoehtoisesti Live Server riittää selainkäyttöliittymän esikatseluun; silloin Node-palvelinta ei tarvita.
+
+Kirjautumislinkkiä ei lähetetä sähköpostilla demotilassa. Rekisteröinnin tai kirjautumispyynnön jälkeen linkki näytetään heti käyttöliittymässä. Linkin avaaminen vahvistaa paikallisen käyttäjän ja luo paikallisen selainistunnon.
+
+Demotilassa on aina kaksi testikäyttäjää:
+
+- `test.admin@parkitin.fi` — vahvistettu `admin`-käyttäjä.
+- `test.user@parkitin.fi` — vahvistettu `customer`-käyttäjä, rekisterinumero `ABC-123`.
+
+Kirjaudu testikäyttäjänä avaamalla kirjautumislinkki käyttöliittymässä. Avaa toinen ikkuna osoitteeseen `/camera/`, syötä rekisterinumero `ABC-123` ja käynnistä pysäköinti. Molemmat ikkunat käyttävät samaa `localStorage`-tilaa. Asiakasikkuna näyttää aktiivisen pysäköinnin, alueen, osoitetun paikan ja hinnan seuraavan tilapäivityksen tai sivun päivityksen jälkeen.
+
+Demoaineiston voi tyhjentää selaimen kehittäjäkonsolissa:
+
+```javascript
+localStorage.removeItem('parkitin_local_store_sql_v1');
+localStorage.removeItem('parkitin_session_token');
+location.reload();
+```
+
+### Demotilan rajoitukset
+
+- Demotila käyttää SQL-vientiä aloitusaineistona, ei suoraa yhteyttä MySQL-tietokantaan. Myöhemmät muutokset tallennetaan vain selaimen `localStorage`-tallennukseen.
+- Tiedot eivät siirry eri selaimien, profiilien tai laitteiden välillä.
+- Tiedot häviävät, jos selaimen sivustotiedot tyhjennetään tai paikallinen tallennus poistetaan.
+- Testikäyttäjät `test.admin@parkitin.fi` ja `test.user@parkitin.fi` lisätään aina paikalliseen demoaineistoon.
+- Kirjautumislinkit ovat vain simulointi: linkki näytetään käyttöliittymässä eikä sähköpostia lähetetä.
+- Kameraikkuna ja asiakasikkuna käyttävät samaa tallennusta, mutta asiakasnäkymä hakee uuden tilan seuraavalla tilapäivityksellä tai sivun päivityksen jälkeen.
+- Paikallinen API-simulaattori ei ole tuotantokäyttöön tarkoitettu suojauskerros. Oikea käyttöoikeuksien valvonta kuuluu Node-palvelimelle.
+- Selain ei voi käyttää SQL-tiedostoa ilman staattista tiedostopalvelua. Node-palvelin tai Live Server tarvitaan tiedoston lataamiseen.
+
+### Node-palvelimen rajoitukset
+
+- Node-palvelimen tietokantapolku vaatii MySQL-yhteyden ja palvelimen `.env`-asetukset. Se on eri asia kuin selaimen paikallinen demotila.
+- SMTP-tunnukset ovat palvelimen ympäristöasetuksia, eivät käyttäjä- tai rooliasetuksia.
+- LiteSpeedin reverse proxy, Node-prosessin valvonta ja tuotannon salaisuudet on määritettävä palvelimella erikseen.
+- `assets/dbttx_parkitin.sql` sisältää tietokantaviennin ja sitä tulee käsitellä arkaluontoisena aineistona. Sitä ei pidä käyttää julkisena tuotantodumppina.
+
 ## Arkkitehtuuri
 
 Sovelluksessa on kolme pääosaa:
@@ -18,7 +94,7 @@ Sovelluksessa on kolme pääosaa:
 
 ## Tietokanta
 
-Tietokannan rakenne on tiedostossa `sql/schema.sql`.
+Tietokannan rakenne ja nykyinen aineistovienti ovat tiedostossa `assets/dbttx_parkitin.sql`.
 
 ```mermaid
 erDiagram

@@ -89,4 +89,15 @@ export function renderMessage(app: HTMLElement, key: string): void {
     message.className = 'message';
     message.textContent = trans(key);
     app.appendChild(message);
+    const loginLink = localStorage.getItem('parkitin_last_login_link');
+    if (loginLink) {
+        const link = document.createElement('a');
+        link.href = loginLink;
+        link.textContent = loginLink;
+        link.className = 'login-link';
+        link.style.display = 'block';
+        link.style.marginTop = '1rem';
+        app.appendChild(link);
+        localStorage.removeItem('parkitin_last_login_link');
+    }
 }

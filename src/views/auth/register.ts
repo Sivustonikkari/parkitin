@@ -44,6 +44,8 @@ export function renderRegisterForm(app: HTMLElement, email: string, actions: Reg
             actions.showLogin();
             return;
         }
+        const data = await res.json();
+        if (data.login_link) localStorage.setItem('parkitin_last_login_link', data.login_link);
         actions.showMessage('messages.accountCreated');
     });
 }

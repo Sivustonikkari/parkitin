@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "build": "tsc -p tsconfig.json && esbuild src/app.ts --bundle --target=es2019 --outfile=build/js/app.js && javascript-obfuscator build/js/app.js --output assets/js/app.js --compact true --control-flow-flattening false --dead-code-injection false",
+    "build": "tsc -p tsconfig.json && esbuild src/app.ts --bundle --target=es2019 --outfile=build/js/app.js && esbuild src/camera.ts --bundle --target=es2019 --outfile=build/js/camera.js && javascript-obfuscator build/js/app.js --output assets/js/app.js --compact true --control-flow-flattening false --dead-code-injection false && javascript-obfuscator build/js/camera.js --output assets/js/camera.js --compact true --control-flow-flattening false --dead-code-injection false",
     "build-server": "tsc -p tsconfig.server.json",
     "start": "node build/server/index.js"
   },
