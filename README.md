@@ -1,6 +1,6 @@
 ![Parkitin](assets/parkitin.svg)
 
-Harjoitustyönä tehty pysäköintisovellus, joka koostuu MySQL-tietokannasta, PHP:llä toteutetusta REST APIsta ja vanilla TypeScriptillä toteutetusta käyttöliittymästä, eli ei erillistä käyttöliittymäkirjastoa. Tyylit on myös perus CSS:llä väsätty. Karttana on openStreetmap. Erillistä karttakirjastoa ei käytetä vaan kartta piirretään OSM:n julkista tile-kirjastoa käyttämällä (`https://tile.openstreetmap.org/{z}/{x}/{y}.png`). Postitoimipaikkatiedot on noudettu Avoin data -palvelusta (`https://avoindata.suomi.fi/data/fi/dataset/suomen-postitoimipaikat`).
+Harjoitustyönä tehty pysäköintisovellus, joka koostuu MySQL-tietokannasta, Node.js:llä ja vanilla TypeScriptillä toteutetusta REST APIsta sekä vanilla TypeScriptillä toteutetusta käyttöliittymästä. Tyylit on myös perus CSS:llä väsätty. Karttana on OpenStreetMap. Erillistä karttakirjastoa ei käytetä, vaan kartta piirretään OSM:n julkisia tilejä käyttämällä (`https://tile.openstreetmap.org/{z}/{x}/{y}.png`).
 
 Kirjautumisessa käytetään sähköpostiin lähetettävää kirjautumislinkkiä. Selitetty tarkemmin kohdassa [Kirjautumismenetelmä](#kirjautumismenetelmä).
 
@@ -13,7 +13,7 @@ Palvelu sijaitsee testipalvelimella osoitteessa: `https://testinikkari.fi/parkit
 Sovelluksessa on kolme pääosaa:
 
 1. **MySQL-tietokanta** käyttäjät, pysäköintialueet, pysäköintipaikat, pysäköinnit, istunnot, kirjautumislinkit maksutiedot.
-2. **PHP REST API** tietokantatoimintojen hallinta ja sähköpostin lähetys.
+2. **Node.js REST API** tietokantatoimintojen hallinta ja sähköpostin lähetys.
 3. **Vanilla TypeScript + CSS** Käyttölittumätoiminnot
 
 ## Tietokanta
@@ -102,7 +102,7 @@ erDiagram
 
 ## Node.js API
 
-APIn osoite on `/api/`. Endpoint query-parametrilla: `/parkitin/api/index.php?resource=RESOURCE`
+APIn osoite on `/api`. Resurssi annetaan query-parametrilla: `/parkitin/api?resource=RESOURCE`.
 
 JSON POST- ja PUT-pyynnöt lähetetään `Content-Type: application/json` -otsakkeella.
 
@@ -165,7 +165,7 @@ Laskun sähköpostitoiminto on poistettu käytöstä. Maksut hallitaan tietokann
 
 API:ssa on kaksi tunnistautumistapaa:
 
-1. **Kuljettaja- ja integraatio-API**: `X-Api-Key`-otsake. Protoilua varten on kovakoodattu vakio `DEV_API_KEY`;
+1. **Kuljettaja- ja integraatio-API**: `X-Api-Key`-otsake. Kehityksen API-avain annetaan palvelimen ympäristömuuttujalla `DEV_API_KEY`;
 
 2. **Selainkäyttöliittymä**: `Authorization: Bearer SESSION_TOKEN`. Token syntyy kertakäyttöisen sähköpostilinkin kautta ja vanhenee tunnissa.
 
@@ -189,7 +189,7 @@ Kartta käyttää tietokantaan valmiiksi tallennettuja koordinaatteja. Selaimess
 
 Kameraintegraatio sijaitsee osoitteessa `/camera/`. Sen tarkoitus on simuloida rekisterikilven lukijaa, joka käynnistää tai päättää pysäköinnin ilman käyttäjän selainkäyttöliittymää. Toiminnot käyttävät samaa `parking_sessions`-taulua sekä samoja paikan lukitus- ja hintalaskentasääntöjä kuin käyttöliittymän manuaalinen pysäköinti.
 
-Rajapinnan pyynnöt tehdään osoitteeseen `/api/index.php` JSON-muodossa. Kameralla on oltava `X-Api-Key`-otsake. Rekisterinumero validoidaan muodossa `1–3` kirjainta, väliviiva ja `1–3` numeroa, esimerkiksi `ABC-123`.
+Rajapinnan pyynnöt tehdään osoitteeseen `/api` JSON-muodossa. Kameralla on oltava `X-Api-Key`-otsake. Rekisterinumero validoidaan muodossa `1–3` kirjainta, väliviiva ja `1–3` numeroa, esimerkiksi `ABC-123`.
 
 - `POST resource=camera_start`: vastaanottaa `plate`- ja `lot_id`-kentät. Onnistunut vastaus sisältää käyttäjän tiedot, varatun paikan sekä pysäköinnin aloitusajan. Virhetilanteet ovat tuntematon rekisterinumero, jo käynnissä oleva pysäköinti, tuntematon alue tai täysi alue.
 - `POST resource=camera_stop`: vastaanottaa vain `plate`-kentän. Onnistunut vastaus sisältää käyttäjän tiedot, pysäköinnin keston ja loppuhinnan. Virhetilanteet ovat tuntematon rekisterinumero tai puuttuva aktiivinen pysäköinti.
@@ -289,31 +289,31 @@ Avain koostuu kontekstista ja tekstinimestä. Parametrit korvataan `{email}`-tyy
 
 ## Turvallisuusperiaatteet
 
-- Tietokantasalaisuudet ovat sovelluksen asetustiedostossa, jota ei versioida.
+- Tietokanta-, API-avain- ja SMTP-salaisuudet ovat palvelimen `.env`-tiedostossa, jota ei versioida.
 - Selainistunto perustuu kertakäyttöiseen, vanhenevaan Bearer-tunnisteeseen.
-- Hallintatoimintojen roolit tarkistetaan PHP-palvelimella.
+- Hallintatoimintojen roolit tarkistetaan Node-palvelimella.
 - Käyttäjän sähköposti validoidaan selaimessa ja palvelimella.
 - Admin-rajapinnan roolit tarkistetaan palvelimella.
 - Varsinaista tietosuojatarkistusta ei tälle harjoitustyölle ole tehty.
 
 ## Tiedostot
 
-- `index.php`: selaimen HTML-kuori, header ja assettien välimuistiversiointi
+- `index.html`: selaimen HTML-koodi
 - `src/app.ts`: vanilla TypeScript -käyttöliittymä, kartta, kirjautuminen ja maksut
 - `assets/js/app.js`: TypeScriptin käännetty ja obfuskoitu
 - `assets/css/style.css`: responsiivinen CSS
-- `api/index.php`: REST-API
-- `handlers/account.php`: kirjautuminen, profiili, pysäköinti ja maksut
-- `handlers/users.php`: käyttäjien hallinta ja roolirajoitukset
-- `handlers/lots.php`: alueiden ja paikkojen hallinta
-- `handlers/slots.php`: paikkakyselyt
-- `handlers/sessions.php`: pysäköintisessioiden vanhempi rajapinta
-- `helpers.php`: yhteiset validointi-, JSON-, XML- ja geokoodausfunktiot
-- `auth.php`: API-avain- ja session-tunnistautuminen
-- `db.php`: PDO-yhteys
-- `mailer.php`: PHPMailer-sähköpostit
+- `src/server/index.ts`: Node HTTP -palvelin ja resurssien reititys
+- `src/server/account.ts`: kirjautuminen, profiili, pysäköinti ja maksut
+- `src/server/users.ts`: käyttäjien hallinta ja roolirajoitukset
+- `src/server/resources.ts`: alueet, paikat ja geokoodaus
+- `src/server/camera.ts`: kameran pysäköintitoiminnot
+- `src/server/legacy.ts`: vanha integraatio-API
+- `src/server/auth.ts`: API-avain- ja session-tunnistautuminen
+- `src/server/db.ts`: MySQL-yhteyspooli ja transaktiot
+- `src/server/mail.ts`: SMTP-sähköpostit
 - `sql/schema.sql`: tietokannan rakenne
 - `i18n/*.json`: käyttöliittymän käännökset
 - `assets/postitoimipaikat.xml`: postinumeroiden ja postitoimipaikkojen lähde
-- `scripts/import_digitraffic.php`: mock-aineiston tuonti
-- `scripts/expand_digitraffic_mock.php`: mock-aineiston laajennus
+- `.env.example`: palvelimen ympäristömuuttujien mallipohja
+- `package.json`: Node-riippuvuudet ja build-komennot
+- `tsconfig.server.json`: palvelimen TypeScript-käännösasetukset
