@@ -100,7 +100,7 @@ erDiagram
 
 `login_tokens` ovat 15 minuutin kertakäyttöisiä sähköpostilinkkejä. `user_sessions` ovat yhden tunnin Bearer-istuntoja. `api_keys` on palvelin- ja integraatio-API:n avaimia varten.
 
-## PHP API
+## Node.js API
 
 APIn osoite on `/api/`. Endpoint query-parametrilla: `/parkitin/api/index.php?resource=RESOURCE`
 
@@ -173,7 +173,7 @@ Omistaja- ja ylläpitäjätoiminnot tarkistavat lisäksi käyttäjän roolin. As
 
 ## Käyttöliittymä
 
-`index.php` tarjoaa vain HTML-kuoren. `src/app.ts` sisältää käyttöliittymälogiikan ja käännetään tiedostoksi `assets/js/app.js`.
+`index.html` tarjoaa HTML-kuoren. Node-palvelin tarjoaa staattiset tiedostot. `src/app.ts` sisältää käyttöliittymälogiikan ja käännetään tiedostoksi `assets/js/app.js`.
 
 UI käyttää:
 
@@ -195,7 +195,7 @@ Rajapinnan pyynnöt tehdään osoitteeseen `/api/index.php` JSON-muodossa. Kamer
 - `POST resource=camera_stop`: vastaanottaa vain `plate`-kentän. Onnistunut vastaus sisältää käyttäjän tiedot, pysäköinnin keston ja loppuhinnan. Virhetilanteet ovat tuntematon rekisterinumero tai puuttuva aktiivinen pysäköinti.
 - `GET resource=camera_lots&q=...`: hakee pysäköintialueita nimen, kaupungin, osoitteen tai tunnisteen perusteella. Simulaattori käyttää tätä autocomplete-hakuun.
 
-`camera/index.php` on erillinen PHP-näkymä kameran testaamiseen. Siinä rekisterikilven kirjain- ja numero-osa syötetään erikseen. Aloitusta varten alue haetaan autocomplete-kentästä; lopetus tarvitsee vain rekisterinumeron. Molemmat toiminnot näyttävät vastauksen käyttäjäystävällisenä onnistumis- tai virheilmoituksena.
+`camera/index.html` on erillinen näkymä kameran testaamiseen. Siinä rekisterikilpi ja alue syötetään lomakkeella.
 
 ## Roolit
 
@@ -272,7 +272,7 @@ Käännöstoiminnot on toteutettu ilman ulkoista kirjastoa.
 }
 ```
 
-`i18n/index.php` lukee kansiossa olevien JSON-tiedostojen metatiedot. Käyttöliittymän `initI18n()` valitsee sessionStorageen tallennetun kielen tai käyttää `default: true` -kieltä.
+Node-palvelin lukee kansiossa olevien JSON-tiedostojen metatiedot. Käyttöliittymän `initI18n()` valitsee sessionStorageen tallennetun kielen tai käyttää `default: true` -kieltä.
 
 Kaikki käyttöliittymän tekstit haetaan `trans()`-funktiolla:
 

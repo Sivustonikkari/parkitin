@@ -1,6 +1,6 @@
 // Browser API constants and shared client helpers for Parkitin requests.
 
-export const API_BASE = 'api/index.php';
+export const API_BASE = 'api';
 export const SESSION_KEY = 'parkitin_session_token';
 export const LOCALE_KEY = 'parkitin_locale';
 

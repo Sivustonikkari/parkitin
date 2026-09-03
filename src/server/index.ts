@@ -31,12 +31,12 @@ export async function handleRequest(
             return;
         }
 
-        if (request.method === 'GET' && requestUrl.pathname === '/i18n/index.php') {
+        if (request.method === 'GET' && requestUrl.pathname === '/i18n') {
             await localeMetadata(response);
             return;
         }
 
-        if (requestUrl.pathname === '/api/index.php' && context) {
+        if (requestUrl.pathname === '/api' && context) {
             const resource = requestUrl.searchParams.get('resource');
             if (resource === 'camera_start' || resource === 'camera_stop' || resource === 'camera_lots') {
                 await requireApiKey(request, context.config, context.database);
@@ -51,7 +51,7 @@ export async function handleRequest(
             if (resource === 'lots' || resource === 'slots') {
                 await requireApiKeyOrAdminSession(request, context.config, context.database);
                 if (resource === 'lots') {
-                    await handleLots(request, response, requestUrl, context.database);
+                    await handleLots(request, response, requestUrl, context.database, context.config);
                 } else {
                     await handleSlots(request, response, requestUrl, context.database);
                 }
@@ -63,8 +63,8 @@ export async function handleRequest(
                 return;
             }
             if (resource === 'users') {
-                await requireApiKeyOrAdminSession(request, context.config, context.database);
-                await handleUsers(request.method, response, requestUrl, context.database);
+                const actor = await requireApiKeyOrAdminSession(request, context.config, context.database);
+                await handleUsers(request.method, response, requestUrl, context.database, actor, request);
                 return;
             }
             if (resource === 'login_request' || resource === 'register') {

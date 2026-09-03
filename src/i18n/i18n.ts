@@ -52,7 +52,7 @@ function renderLanguageSwitcher(
 }
 
 export async function initI18n(onLocaleChanged: () => void): Promise<void> {
-    const res = await fetch('i18n/index.php');
+    const res = await fetch('i18n');
     const locales: LocaleInfo[] = await res.json();
     if (locales.length === 0) return;
 

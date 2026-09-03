@@ -2,19 +2,18 @@
 
 ## Project Purpose
 
-Parkitin is a PHP/MySQL parking application with a browser UI written in vanilla TypeScript and CSS. Keep the implementation simple: do not add frontend frameworks, map libraries, ORMs, or unnecessary dependencies.
+Parkitin is a Node.js/MySQL parking application with a browser UI written in vanilla TypeScript and CSS. Keep the implementation simple: do not add frontend frameworks, map libraries, ORMs, or unnecessary dependencies.
 
 ## Project Structure
 
-- `index.php` is the browser HTML shell. It serves the shared header, loads Google Ubuntu, and cache-busts CSS/JS using file modification times.
+- `index.html` is the browser HTML shell. The Node server serves the shared header and static assets.
 - `src/app.ts` is the only TypeScript source for the browser UI.
 - `assets/js/app.js` is generated and obfuscated output. Never edit it manually.
 - `assets/css/style.css` is the single vanilla stylesheet.
-- `api/index.php` routes REST API resources.
-- `handlers/` contains PHP resource handlers. Keep each handler focused on its resource.
-- `camera/index.php` is the server-rendered camera/plate-reader simulator.
+- `src/server/` contains the native Node REST server and resource handlers.
+- `camera/index.html` is the camera/plate-reader simulator.
 - `sql/schema.sql` describes the complete database schema for new installations.
-- `i18n/<locale>.json` holds frontend translations; `i18n/index.php` lists available locales.
+- `i18n/<locale>.json` holds frontend translations; the Node server lists available locales.
 - `scripts/` contains mock-data generation and import scripts.
 
 ## Build Rules
@@ -23,10 +22,10 @@ Parkitin is a PHP/MySQL parking application with a browser UI written in vanilla
 - Run `yarn build` after every TypeScript change. It compiles to `build/js/app.js` and obfuscates the served `assets/js/app.js`.
 - Keep TypeScript strict and compatible with the configured ES2019 target.
 - Validate frontend changes with `yarn build` and `node --check assets/js/app.js`.
-- Validate PHP changes with `php -l` on every touched PHP file.
+- Validate the server with `yarn build-server`.
 - Validate changed locale files with `python3 -m json.tool i18n/<locale>.json`.
 
-## PHP and Database Conventions
+## Database Conventions
 
 - Use PDO and prepared statements for every SQL query with external values.
 - Return API responses through `send_json()` with appropriate HTTP status codes.
@@ -34,7 +33,7 @@ Parkitin is a PHP/MySQL parking application with a browser UI written in vanilla
 - Keep business rules authoritative on the server. UI visibility is not authorization.
 - Schema changes require two actions: update `sql/schema.sql` and apply a safe migration to the existing live database. `CREATE TABLE IF NOT EXISTS` does not modify existing tables.
 - Use `utf8mb4`/UTF-8 for database and email data.
-- Do not expose database passwords, API keys, session tokens, or SMTP credentials. `config.php` is ignored; use `config.example.php` for safe examples.
+- Do not expose database passwords, API keys, session tokens, or SMTP credentials. Use `.env` on the server and `.env.example` as the safe template.
 
 ## Authentication and Authorization
 
@@ -96,5 +95,4 @@ Parkitin is a PHP/MySQL parking application with a browser UI written in vanilla
 
 - `scripts/digitraffic-mock.json` is mock data shaped like Digitraffic GeoJSON, not a verified live feed.
 - Keep mock facility names playful and coordinates inside the named Finnish city.
-- `expand_digitraffic_mock.php` must remain idempotent.
-- `import_digitraffic.php` must skip previously imported facilities safely and preserve stored mock coordinates.
+- Mock-data import tooling must remain idempotent and preserve stored mock coordinates.

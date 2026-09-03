@@ -27,7 +27,7 @@
         const result = document.getElementById('camera-result');
         async function submit(form, resource) {
             const data = Object.fromEntries(new FormData(form));
-            const response = await fetch('../api/index.php?resource=' + resource, { method: 'POST', headers: {'Content-Type': 'application/json', 'X-Api-Key': apiKey}, body: JSON.stringify(data) });
+            const response = await fetch('../api?resource=' + resource, { method: 'POST', headers: {'Content-Type': 'application/json', 'X-Api-Key': apiKey}, body: JSON.stringify(data) });
             const body = await response.json();
             result.textContent = response.ok ? JSON.stringify(body) : (body.error || 'Virhe');
         }
