@@ -16,36 +16,33 @@ Sivu tarvitsee vain staattisen tiedostopalvelun, esimerkiksi VS Coden Live Serve
 
 ### Build ja Node-palvelin
 
-Asenna Node.js ja Corepack tai Yarn. Komennot toimivat tavallisessa komentotulkissa Windowsissa, macOS:ssa ja Linuxissa:
+Asenna Node.js ja Yarn. Komennot toimivat tavallisessa komentotulkissa Windowsissa, macOS:ssa ja Linuxissa:
 
 ```sh
-corepack enable
-corepack yarn install
-corepack yarn build
-corepack yarn build-server
+yarn install
+yarn build
+yarn build-server
 ```
 
-Käynnistä Node-palvelin paikallista selaintestiä varten. Paikallisessa demotilassa tietokanta- ja SMTP-arvot ovat vain käynnistyksen vaatimia paikkamerkkejä, koska selain käyttää `localStorage`-tallennusta ja paikallista API-simulaattoria. POSIX-yhteensopivassa komentotulkissa:
+Käynnistä Node-palvelin paikallista selaintestiä varten. Paikallisessa demotilassa tietokanta- ja SMTP-arvot ovat vain käynnistyksen vaatimia paikkamerkkejä, koska selain käyttää `localStorage`-tallennusta ja paikallista API-simulaattoria. Luo ensin projektiin paikallinen `.env`-tiedosto kopioimalla `.env.example`:
 
 ```sh
-export HOST='127.0.0.1'
-export PORT='3020'
-export APP_URL='http://127.0.0.1:3020'
-export DB_HOST='127.0.0.1'
-export DB_NAME='local-demo'
-export DB_USER='local-demo'
-export DB_PASS=''
-export DB_CHARSET='utf8mb4'
-export DEV_API_KEY='local-demo'
-export SMTP_HOST='127.0.0.1'
-export SMTP_PORT='2525'
-export SMTP_USER='local-demo'
-export SMTP_PASSWORD='local-demo'
-export SMTP_FROM='local-demo@example.com'
-corepack yarn start
+cp .env.example .env
 ```
 
-PowerShellissä käytä `$env:NAME = 'value'` -muotoa. POSIX-komentotulkissa käytä yllä olevaa `export NAME='value'` -muotoa.
+PowerShellissä:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+Muokkaa `.env`-tiedostoa omilla paikallisilla arvoilla ja käynnistä palvelin:
+
+```sh
+yarn start
+```
+
+`.env`-tiedostoa ei versionni. Sitä käytetään palvelimen `process.env`-muuttujien lukemiseen [src/server/config.ts](src/server/config.ts)-tiedostossa.
 
 Avaa `http://localhost:3020/`. Kamerasimulaattori on osoitteessa `http://localhost:3020/camera/`. Pysäytä palvelin painamalla `Ctrl+C`. Vaihtoehtoisesti Live Server riittää selainkäyttöliittymän esikatseluun; silloin Node-palvelinta ei tarvita.
 

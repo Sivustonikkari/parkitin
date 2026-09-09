@@ -30,7 +30,6 @@ Run these on the LiteSpeed server after cloning or pulling:
 ```bash
 git clone -b typescriptify git@github.com:Sivustonikkari/parkitin.git
 cd parkitin
-corepack enable
 yarn install --frozen-lockfile
 yarn build
 yarn build-server
